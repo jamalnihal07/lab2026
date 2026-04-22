@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Courses</h1>
+        
+        <div class="courses-grid">
+            <div th:each="course : ${courses}" class="course-card">
+                <h3 th:text="${course.courseName}"></h3>
+                <p th:text="${course.courseDescription}"></p>
+                <p class="price" th:text="'$' + ${course.price}"></p>
+                <p class="instructor" th:text="'Instructor: ' + ${course.instructor}"></p>
+                <p class="category" th:text="${course.category}"></p>
+                <p class="rating" th:text="'Rating: ' + ${course.rating} + '/5'"></p>
+                <a th:href="@{/courses/{id}(id=${course.courseId})}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

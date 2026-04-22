@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        
+        <div class="admin-section">
+            <h2>Course Management</h2>
+            <p>Manage all courses in the system</p>
+            <a th:href="@{/courses}" class="btn btn-primary">View All Courses</a>
+            <a href="/courses/admin/new" class="btn btn-primary">Add New Course</a>
+        </div>
+
+        <div class="admin-section">
+            <h2>User Management</h2>
+            <p>Manage user accounts and access</p>
+            <a href="/admin/users" class="btn btn-secondary">View All Users</a>
+            <a href="/admin/users/reports" class="btn btn-secondary">User Reports</a>
+        </div>
+
+        <div class="admin-section">
+            <h2>Payment Management</h2>
+            <p>Monitor payments and transactions</p>
+            <a href="/admin/payments" class="btn btn-secondary">View Payments</a>
+            <a href="/admin/payments/reports" class="btn btn-secondary">Payment Reports</a>
+        </div>
+
+        <div class="admin-section">
+            <h2>System Analytics</h2>
+            <p>View system-wide statistics and analytics</p>
+            <a href="/admin/analytics" class="btn btn-secondary">View Analytics</a>
+        </div>
+
+        <div class="admin-section">
+            <h2>CRM Management</h2>
+            <p>Manage employees and customer interactions</p>
+            <a href="/admin/employees" class="btn btn-secondary">View Employees</a>
+            <a href="/admin/interactions" class="btn btn-secondary">Customer Interactions</a>
+        </div>
+    </div>
+</body>
+</html>

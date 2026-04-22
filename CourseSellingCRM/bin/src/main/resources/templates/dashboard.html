@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Your Dashboard</h1>
+        
+        <section class="dashboard-section">
+            <h2>My Enrollments</h2>
+            <p>View your enrolled courses and track your progress.</p>
+            <a href="/user/enrollments" class="btn btn-secondary">View My Courses</a>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>Browse Courses</h2>
+            <p>Explore new courses to expand your skills.</p>
+            <a th:href="@{/courses}" class="btn btn-primary">Browse Courses</a>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>Payment History</h2>
+            <p>Check your past payments and invoices.</p>
+            <a href="/user/payments" class="btn btn-secondary">View Payments</a>
+        </section>
+    </div>
+</body>
+</html>

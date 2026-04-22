@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - CRM</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee CRM Dashboard</h1>
+        
+        <div class="employee-section">
+            <h2>Customer Calls & Interactions</h2>
+            <p>Manage customer interactions and call records</p>
+            <a href="/employee/interactions" class="btn btn-primary">View Interactions</a>
+            <a href="/employee/interactions/new" class="btn btn-primary">Log New Interaction</a>
+        </div>
+
+        <div class="employee-section">
+            <h2>Customer Management</h2>
+            <p>Search and manage customer profiles</p>
+            <a href="/employee/customers" class="btn btn-secondary">View Customers</a>
+        </div>
+
+        <div class="employee-section">
+            <h2>Sales & Orders</h2>
+            <p>Create orders and track sales</p>
+            <a href="/employee/sales" class="btn btn-secondary">View Sales</a>
+            <a href="/employee/orders/new" class="btn btn-secondary">Create New Order</a>
+        </div>
+
+        <div class="employee-section">
+            <h2>My Performance</h2>
+            <p>Check your sales metrics and statistics</p>
+            <a href="/employee/performance" class="btn btn-secondary">View Performance</a>
+        </div>
+
+        <div class="employee-section">
+            <h2>Available Courses</h2>
+            <p>Browse all courses to recommend to customers</p>
+            <a th:href="@{/courses}" class="btn btn-secondary">Browse Courses</a>
+        </div>
+
+        <div class="employee-section">
+            <h2>Payment Processing</h2>
+            <p>Process customer payments</p>
+            <a href="/employee/payments" class="btn btn-secondary">View Transactions</a>
+        </div>
+    </div>
+
+    <style>
+        .employee-section {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .employee-section h2 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .employee-section a {
+            margin-right: 1rem;
+        }
+    </style>
+</body>
+</html>

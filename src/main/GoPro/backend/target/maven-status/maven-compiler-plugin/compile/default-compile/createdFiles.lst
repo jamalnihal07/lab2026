@@ -1,0 +1,8 @@
+com\gopro\backend\controller\DriverController.class
+com\gopro\backend\controller\RideController.class
+com\gopro\backend\controller\AuthController.class
+com\gopro\backend\GoProBackendApplication.class
+com\gopro\backend\service\DataService.class
+com\gopro\backend\model\Driver.class
+com\gopro\backend\model\Ride.class
+com\gopro\backend\model\User.class

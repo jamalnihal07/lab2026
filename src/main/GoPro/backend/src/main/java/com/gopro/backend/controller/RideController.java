@@ -77,7 +77,7 @@ public class RideController {
                 if (r.driverId != null) {
                     for (Driver d : drivers) {
                         if (d.id != null && d.id.equals(r.driverId)) {
-                            if (d.earnings == null) d.earnings = Map.of("today",0);
+                            if (d.earnings == null) d.earnings = new java.util.HashMap<>();
                             int fare = r.fare == null ? 0 : r.fare;
                             d.earnings.put("today", d.earnings.getOrDefault("today", 0) + fare);
                             d.earnings.put("week", d.earnings.getOrDefault("week", 0) + fare);

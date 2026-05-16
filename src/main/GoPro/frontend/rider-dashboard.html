@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rider Dashboard - GoPro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="app-title-small">🚗 GoPro</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" onclick="switchSection('dashboard')">
+                    <span class="icon">🏠</span> Dashboard
+                </a>
+                <a href="#" class="nav-link" onclick="switchSection('book-ride')">
+                    <span class="icon">📍</span> Book Ride
+                </a>
+                <a href="#" class="nav-link" onclick="switchSection('active-ride')">
+                    <span class="icon">🚗</span> Active Ride
+                </a>
+                <a href="#" class="nav-link" onclick="switchSection('ride-history')">
+                    <span class="icon">📜</span> Ride History
+                </a>
+                <a href="#" class="nav-link" onclick="switchSection('wallet')">
+                    <span class="icon">💰</span> Wallet
+                </a>
+                <a href="#" class="nav-link" onclick="switchSection('profile')">
+                    <span class="icon">👤</span> Profile
+                </a>
+                <a href="#" class="nav-link" onclick="logout()">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <div class="notification-bell">
+                        <span class="icon">🔔</span>
+                        <span class="notification-badge" id="notificationCount">0</span>
+                    </div>
+                    <div class="user-avatar" onclick="switchSection('profile')">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section class="content-section active" id="dashboardSection">
+                <div class="dashboard-grid">
+                    <!-- Quick Stats -->
+                    <div class="stats-card">
+                        <div class="stat">
+                            <h3>Total Rides</h3>
+                            <p class="stat-value" id="totalRides">0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stat">
+                            <h3>Wallet Balance</h3>
+                            <p class="stat-value" id="walletBalance">₹0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stat">
+                            <h3>Average Rating</h3>
+                            <p class="stat-value" id="avgRating">4.5 ⭐</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stat">
+                            <h3>Total Spent</h3>
+                            <p class="stat-value" id="totalSpent">₹0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="switchSection('book-ride')">📍 Book a Ride</button>
+                        <button class="btn btn-secondary" onclick="switchSection('wallet')">💳 Add Money</button>
+                        <button class="btn btn-secondary" onclick="switchSection('ride-history')">📋 View History</button>
+                    </div>
+                </div>
+
+                <!-- Recent Rides -->
+                <div class="recent-rides">
+                    <h3>Recent Rides</h3>
+                    <div id="recentRidesList" class="rides-list">
+                        <p class="empty-state">No recent rides</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Book Ride Section -->
+            <section class="content-section" id="bookRideSection">
+                <div class="book-ride-container">
+                    <h2>Book Your Ride</h2>
+                    <form class="ride-form" onsubmit="bookRide(event)">
+                        <div class="form-group">
+                            <label for="pickupLocation">Pickup Location</label>
+                            <input type="text" id="pickupLocation" placeholder="Enter pickup location" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dropoffLocation">Dropoff Location</label>
+                            <input type="text" id="dropoffLocation" placeholder="Enter dropoff location" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rideType">Ride Type</label>
+                            <select id="rideType" onchange="updateFareEstimate()">
+                                <option value="economy">Economy - ₹10/km</option>
+                                <option value="comfort">Comfort - ₹15/km</option>
+                                <option value="premium">Premium - ₹20/km</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="distance">Distance (km)</label>
+                            <input type="number" id="distance" placeholder="Enter distance" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="promoCode">Promo Code (Optional)</label>
+                            <input type="text" id="promoCode" placeholder="Enter promo code">
+                        </div>
+                        <div class="fare-estimate" id="fareEstimate">
+                            <p>Estimated Fare: <strong>₹0</strong></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Book Ride Now</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Active Ride Section -->
+            <section class="content-section" id="activeRideSection">
+                <div class="active-ride-container">
+                    <h2>Active Ride</h2>
+                    <div id="activeRideInfo" class="active-ride-card">
+                        <p class="empty-state">No active ride</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ride History Section -->
+            <section class="content-section" id="rideHistorySection">
+                <div class="ride-history-container">
+                    <h2>Ride History</h2>
+                    <div class="history-filters">
+                        <select id="historyFilter" onchange="filterRideHistory()">
+                            <option value="all">All Rides</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div id="rideHistoryList" class="rides-list">
+                        <p class="empty-state">No ride history</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Wallet Section -->
+            <section class="content-section" id="walletSection">
+                <div class="wallet-container">
+                    <h2>Wallet Management</h2>
+                    <div class="wallet-balance-card">
+                        <h3>Current Balance</h3>
+                        <p class="balance-amount" id="currentBalance">₹0</p>
+                    </div>
+                    <form class="add-money-form" onsubmit="addMoneyToWallet(event)">
+                        <h3>Add Money</h3>
+                        <div class="form-group">
+                            <label for="addAmount">Amount (₹)</label>
+                            <input type="number" id="addAmount" placeholder="Enter amount" min="100" step="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentMethod">Payment Method</label>
+                            <select id="paymentMethod">
+                                <option value="card">Debit/Credit Card</option>
+                                <option value="upi">UPI</option>
+                                <option value="netbanking">Net Banking</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Money</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section class="content-section" id="profileSection">
+                <div class="profile-container">
+                    <h2>My Profile</h2>
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <img src="https://via.placeholder.com/100" alt="Profile" class="profile-pic">
+                            <div class="profile-info">
+                                <h3 id="profileName">User Name</h3>
+                                <p id="profileEmail">user@email.com</p>
+                                <p id="profilePhone">+91 9876543210</p>
+                            </div>
+                        </div>
+                        <div class="profile-details">
+                            <h4>Account Details</h4>
+                            <div class="detail-row">
+                                <span>Total Rides:</span>
+                                <span id="profileTotalRides">0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Average Rating:</span>
+                                <span id="profileAvgRating">4.5 ⭐</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Member Since:</span>
+                                <span id="memberSince">2024</span>
+                            </div>
+                        </div>
+                        <form class="profile-form" onsubmit="updateProfile(event)">
+                            <h4>Edit Profile</h4>
+                            <div class="form-group">
+                                <label for="editName">Full Name</label>
+                                <input type="text" id="editName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editPhone">Phone Number</label>
+                                <input type="tel" id="editPhone" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="rider-dashboard.js"></script>
+</body>
+</html>

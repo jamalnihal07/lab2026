@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoPro - Your Ride, Your Way!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FF6B6B;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #FF6B6B;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-login {
+            background: white;
+            color: #FF6B6B;
+            border: 2px solid #FF6B6B;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background: #FF6B6B;
+            color: white;
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .btn-get-started {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+
+        .btn-get-started:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            font-size: 150px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 80px 40px;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .features-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .features-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #FF6B6B;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .pricing-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .vehicles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .vehicle-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .vehicle-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .vehicle-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .vehicle-price {
+            font-size: 1.8rem;
+            color: #FF6B6B;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .vehicle-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: white;
+            padding: 80px 40px;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .step:hover {
+            background: rgba(255, 107, 107, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .step p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-cta {
+            background: white;
+            color: #FF6B6B;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                padding: 40px 20px;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                font-size: 100px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-direction: column;
+            }
+
+            .features-grid,
+            .vehicles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero p,
+            .cta-section p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Alert Box */
+        .alert {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .alert.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-brand">🚗 GoPro</div>
+        <div class="nav-links">
+            <a href="#features" onclick="scrollToFeatures()">Features</a>
+            <a href="#vehicles" onclick="scrollToVehicles()">Pricing</a>
+            <a href="#how" onclick="scrollToHow()">How It Works</a>
+            <div class="auth-buttons">
+                <button class="btn-login" onclick="goToLogin()">Login</button>
+                <button class="btn-signup" onclick="goToSignup()">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Your Ride, Your Way! 🚗</h1>
+                <p>Experience the future of ride-hailing with GoPro. Quick, affordable, and reliable rides at your fingertips.</p>
+                <button class="btn-get-started" onclick="getStarted()">Get Started Now</button>
+                <div style="margin-top: 30px; font-size: 1rem; opacity: 0.8;">
+                    ✅ Browse features without login | 🔐 Login to book rides
+                </div>
+            </div>
+            <div class="hero-image">🚕</div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="features">
+        <div class="features-header">
+            <h2>Why Choose GoPro?</h2>
+            <p>We offer the best ride-hailing experience with cutting-edge technology</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card" onclick="viewFeature('fast')">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast & Reliable</h3>
+                <p>Get a ride in minutes with our efficient matching system and reliable drivers.</p>
+            </div>
+            <div class="feature-card" onclick="viewFeature('prices')">
+                <div class="feature-icon">💰</div>
+                <h3>Best Prices</h3>
+                <p>Transparent pricing with no hidden charges. Use coupons for extra savings!</p>
+            </div>
+            <div class="feature-card" onclick="viewFeature('tracking')">
+                <div class="feature-icon">🗺️</div>
+                <h3>Real-time Tracking</h3>
+                <p>Track your ride in real-time with our interactive map feature.</p>
+            </div>
+            <div class="feature-card" onclick="viewFeature('payment')">
+                <div class="feature-icon">💳</div>
+                <h3>Multiple Payment Methods</h3>
+                <p>Pay with Wallet, UPI, Card, or Cash - choose what works best for you.</p>
+            </div>
+            <div class="feature-card" onclick="viewFeature('offers')">
+                <div class="feature-icon">🎟️</div>
+                <h3>Exclusive Offers</h3>
+                <p>Enjoy special discounts and promo codes on every ride.</p>
+            </div>
+            <div class="feature-card" onclick="viewFeature('rating')">
+                <div class="feature-icon">⭐</div>
+                <h3>Rated 4.8/5</h3>
+                <p>Trusted by thousands of users. See why we're the best choice.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="vehicles" class="pricing">
+        <div class="pricing-header">
+            <h2>Our Vehicle Options</h2>
+            <p>Choose the perfect ride for your journey</p>
+        </div>
+        <div class="vehicles-grid">
+            <div class="vehicle-card" onclick="viewVehicle('bike')">
+                <div class="vehicle-icon">🏍️</div>
+                <h3>Bike</h3>
+                <div class="vehicle-price">Rs. 5/km</div>
+                <p>1 Passenger • Fast & Affordable</p>
+                <p style="font-size: 0.85rem; color: #999;">Perfect for solo travelers</p>
+            </div>
+            <div class="vehicle-card" onclick="viewVehicle('auto')">
+                <div class="vehicle-icon">🔶</div>
+                <h3>Auto</h3>
+                <div class="vehicle-price">Rs. 8/km</div>
+                <p>3 Passengers • Budget Friendly</p>
+                <p style="font-size: 0.85rem; color: #999;">Great for small groups</p>
+            </div>
+            <div class="vehicle-card" onclick="viewVehicle('mini')">
+                <div class="vehicle-icon">🚗</div>
+                <h3>Mini</h3>
+                <div class="vehicle-price">Rs. 10/km</div>
+                <p>4 Passengers • Comfort & Economy</p>
+                <p style="font-size: 0.85rem; color: #999;">Most popular choice</p>
+            </div>
+            <div class="vehicle-card" onclick="viewVehicle('sedan')">
+                <div class="vehicle-icon">🚙</div>
+                <h3>Sedan</h3>
+                <div class="vehicle-price">Rs. 12/km</div>
+                <p>5 Passengers • Premium Comfort</p>
+                <p style="font-size: 0.85rem; color: #999;">For business travel</p>
+            </div>
+            <div class="vehicle-card" onclick="viewVehicle('suv')">
+                <div class="vehicle-icon">🚐</div>
+                <h3>SUV</h3>
+                <div class="vehicle-price">Rs. 15/km</div>
+                <p>7 Passengers • Ultimate Luxury</p>
+                <p style="font-size: 0.85rem; color: #999;">For group adventures</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div id="how" class="how-it-works">
+        <h2>How GoPro Works</h2>
+        <div class="steps">
+            <div class="step" onclick="viewStep('1')">
+                <div class="step-number">1</div>
+                <h3>Sign Up</h3>
+                <p>Create your account in seconds and set up your profile</p>
+            </div>
+            <div class="step" onclick="viewStep('2')">
+                <div class="step-number">2</div>
+                <h3>Book a Ride</h3>
+                <p>Enter your pickup and dropoff locations</p>
+            </div>
+            <div class="step" onclick="viewStep('3')">
+                <div class="step-number">3</div>
+                <h3>Select Vehicle</h3>
+                <p>Choose the vehicle that fits your needs and budget</p>
+            </div>
+            <div class="step" onclick="viewStep('4')">
+                <div class="step-number">4</div>
+                <h3>Pay Securely</h3>
+                <p>Multiple payment options for your convenience</p>
+            </div>
+            <div class="step" onclick="viewStep('5')">
+                <div class="step-number">5</div>
+                <h3>Enjoy Your Ride</h3>
+                <p>Track your driver in real-time and reach your destination</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Functionalities -->
+    <div id="features-extra" class="pricing">
+        <div class="pricing-header">
+            <h2>More Features & Services</h2>
+            <p>Explore all the features that make GoPro your best choice</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card" onclick="viewPayment()">
+                <div class="feature-icon">💳</div>
+                <h3>Payment Details</h3>
+                <p>Learn about secure payment methods and transaction protection.</p>
+            </div>
+            <div class="feature-card" onclick="viewCoupon()">
+                <div class="feature-icon">🎟️</div>
+                <h3>Coupons & Offers</h3>
+                <p>Discover all available discounts, promo codes, and savings options.</p>
+            </div>
+            <div class="feature-card" onclick="viewRating()">
+                <div class="feature-icon">⭐</div>
+                <h3>Ratings & Reviews</h3>
+                <p>Read 50,000+ reviews and understand why riders love GoPro.</p>
+            </div>
+            <div class="feature-card" onclick="viewEmergency()">
+                <div class="feature-icon">🆘</div>
+                <h3>Emergency SOS</h3>
+                <p>Your safety is our priority - learn about emergency features.</p>
+            </div>
+            <div class="feature-card" onclick="viewDriver()">
+                <div class="feature-icon">👨‍💼</div>
+                <h3>Become a Driver</h3>
+                <p>Join our driver network and earn up to Rs. 35,000 monthly.</p>
+            </div>
+            <div class="feature-card" onclick="viewAdmin()">
+                <div class="feature-icon">🛡️</div>
+                <h3>Admin Control</h3>
+                <p>Manage platform operations with advanced analytics and tools.</p>
+            </div>
+            <div class="feature-card" onclick="viewAnalytics()">
+                <div class="feature-icon">📊</div>
+                <h3>Analytics Dashboard</h3>
+                <p>Comprehensive insights into your rides, earnings, and performance.</p>
+            </div>
+            <div class="feature-card" onclick="viewRideManagement()">
+                <div class="feature-icon">🚗</div>
+                <h3>Ride Management</h3>
+                <p>Complete control over all your rides - book, track, manage.</p>
+            </div>
+            <div class="feature-card" onclick="viewLiveLocation()">
+                <div class="feature-icon">📍</div>
+                <h3>Live Location Tracking</h3>
+                <p>Real-time GPS tracking of your ride with accuracy and transparency.</p>
+            </div>
+            <div class="feature-card" onclick="viewRatingSystem()">
+                <div class="feature-icon">⭐</div>
+                <h3>Rating System</h3>
+                <p>Fair, transparent, and verified reviews from real users.</p>
+            </div>
+            <div class="feature-card" onclick="viewWallet()">
+                <div class="feature-icon">💰</div>
+                <h3>Wallet Management</h3>
+                <p>Secure digital wallet for seamless, cashless rides and payments.</p>
+            </div>
+            <div class="feature-card" onclick="viewRideHistory()">
+                <div class="feature-icon">📋</div>
+                <h3>Ride History</h3>
+                <p>Complete record of all your rides and transactions with analytics.</p>
+            </div>
+            <div class="feature-card" onclick="viewNotifications()">
+                <div class="feature-icon">🔔</div>
+                <h3>Notifications</h3>
+                <p>Stay updated with real-time ride alerts and system notifications.</p>
+            </div>
+            <div class="feature-card" onclick="viewProfile()">
+                <div class="feature-icon">👤</div>
+                <h3>Profile Management</h3>
+                <p>Manage your account, settings, and preferences securely.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>Ready to Get Started?</h2>
+        <p>Join thousands of satisfied riders using GoPro</p>
+        <button class="btn-cta" onclick="getStarted()">Book Your First Ride</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 GoPro - Your Ride, Your Way!</p>
+        <p>Safe • Reliable • Affordable</p>
+    </footer>
+
+    <!-- Alert -->
+    <div class="alert" id="alert"></div>
+
+    <script>
+        // Navigation Functions
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToVehicles() {
+            document.getElementById('vehicles').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToHow() {
+            document.getElementById('how').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goToLogin() {
+            window.location.href = 'index.html';
+        }
+
+        function goToSignup() {
+            window.location.href = 'index.html?signup=true';
+        }
+
+        function getStarted() {
+            window.location.href = 'index.html';
+        }
+
+        // Feature navigation
+        function viewFeature(type) {
+            window.location.href = `feature-detail.html?type=${type}`;
+        }
+
+        // Vehicle navigation
+        function viewVehicle(type) {
+            window.location.href = `vehicle-detail.html?type=${type}`;
+        }
+
+        // How It Works navigation
+        function viewStep(step) {
+            window.location.href = `how-it-works-detail.html?step=${step}`;
+        }
+
+        // Additional Features navigation
+        function viewPayment() {
+            window.location.href = 'payment-detail.html';
+        }
+
+        function viewCoupon() {
+            window.location.href = 'coupon-detail.html';
+        }
+
+        function viewRating() {
+            window.location.href = 'rating-detail.html';
+        }
+
+        function viewEmergency() {
+            window.location.href = 'emergency-detail.html';
+        }
+
+        function viewDriver() {
+            window.location.href = 'driver-detail.html';
+        }
+
+        function viewAdmin() {
+            window.location.href = 'admin-detail.html';
+        }
+
+        // New functionality pages navigation
+        function viewAnalytics() {
+            window.location.href = 'analytics-dashboard-detail.html';
+        }
+
+        function viewRideManagement() {
+            window.location.href = 'ride-management-detail.html';
+        }
+
+        function viewLiveLocation() {
+            window.location.href = 'live-location-detail.html';
+        }
+
+        function viewRatingSystem() {
+            window.location.href = 'rating-system-detail.html';
+        }
+
+        function viewWallet() {
+            window.location.href = 'wallet-detail.html';
+        }
+
+        function viewRideHistory() {
+            window.location.href = 'ride-history-detail.html';
+        }
+
+        function viewNotifications() {
+            window.location.href = 'notifications-detail.html';
+        }
+
+        function viewProfile() {
+            window.location.href = 'profile-management-detail.html';
+        }
+
+        // Show alert
+        function showAlert(message) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.classList.add('show');
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

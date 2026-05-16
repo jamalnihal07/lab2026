@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rating & Review System - GoPro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC837 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC837 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin: 10px 0;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .icon {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #FFD93D;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FFD93D;
+            padding-bottom: 10px;
+        }
+
+        .rating-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .rating-card {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC837 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .rating-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .rating-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .rating-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .distribution {
+            background: #fffaf0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .dist-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .dist-star {
+            min-width: 60px;
+            font-weight: bold;
+            color: #FFD93D;
+        }
+
+        .dist-bar {
+            flex: 1;
+            height: 25px;
+            background: #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .dist-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FFD93D 0%, #FFC837 100%);
+            transition: width 0.3s;
+        }
+
+        .dist-percent {
+            min-width: 50px;
+            text-align: right;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: #fffaf0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #FFD93D;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: #FFD93D;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .feature-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .review-sample {
+            background: #fffaf0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #FFD93D;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .reviewer-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .review-rating {
+            color: #FFD93D;
+            font-size: 1.1em;
+        }
+
+        .review-date {
+            font-size: 0.85em;
+            color: #999;
+        }
+
+        .review-text {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .review-badge {
+            display: inline-block;
+            background: #FFD93D;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .benefits-list {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            padding: 12px;
+            background: #fffaf0;
+            border-radius: 6px;
+        }
+
+        .benefit-check {
+            color: #FFD93D;
+            font-weight: bold;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            font-size: 0.95em;
+        }
+
+        .step-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC837 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .step-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .step-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .comparison-table th {
+            background: #FFD93D;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table tr:hover {
+            background: #fffaf0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC837 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 217, 61, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #FFD93D;
+            border: 2px solid #FFD93D;
+        }
+
+        .btn-secondary:hover {
+            background: #FFD93D;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">⭐</div>
+            <h1>Rating & Review System</h1>
+            <p>Fair, transparent, and verified reviews from real users</p>
+        </div>
+
+        <!-- Overall Rating -->
+        <div class="content-section">
+            <h2 class="section-title">📊 Overall Platform Rating</h2>
+            <div class="rating-overview">
+                <div class="rating-card">
+                    <div class="rating-label">Average Rating</div>
+                    <div class="rating-number">4.8⭐</div>
+                    <div class="rating-label">Out of 5</div>
+                </div>
+                <div class="rating-card">
+                    <div class="rating-label">Total Reviews</div>
+                    <div class="rating-number">50K+</div>
+                    <div class="rating-label">Verified Reviews</div>
+                </div>
+                <div class="rating-card">
+                    <div class="rating-label">Positive Ratings</div>
+                    <div class="rating-number">98%</div>
+                    <div class="rating-label">5 & 4 star ratings</div>
+                </div>
+                <div class="rating-card">
+                    <div class="rating-label">Active Reviewers</div>
+                    <div class="rating-number">1M+</div>
+                    <div class="rating-label">Verified Users</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating Distribution -->
+        <div class="content-section">
+            <h2 class="section-title">📈 Rating Distribution</h2>
+            <div class="distribution">
+                <div class="dist-row">
+                    <div class="dist-star">5⭐</div>
+                    <div class="dist-bar">
+                        <div class="dist-bar-fill" style="width: 84%;"></div>
+                    </div>
+                    <div class="dist-percent">84%</div>
+                </div>
+                <div class="dist-row">
+                    <div class="dist-star">4⭐</div>
+                    <div class="dist-bar">
+                        <div class="dist-bar-fill" style="width: 10%;"></div>
+                    </div>
+                    <div class="dist-percent">10%</div>
+                </div>
+                <div class="dist-row">
+                    <div class="dist-star">3⭐</div>
+                    <div class="dist-bar">
+                        <div class="dist-bar-fill" style="width: 3%;"></div>
+                    </div>
+                    <div class="dist-percent">3%</div>
+                </div>
+                <div class="dist-row">
+                    <div class="dist-star">2⭐</div>
+                    <div class="dist-bar">
+                        <div class="dist-bar-fill" style="width: 1.4%;"></div>
+                    </div>
+                    <div class="dist-percent">1.4%</div>
+                </div>
+                <div class="dist-row">
+                    <div class="dist-star">1⭐</div>
+                    <div class="dist-bar">
+                        <div class="dist-bar-fill" style="width: 0.6%;"></div>
+                    </div>
+                    <div class="dist-percent">0.6%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Features -->
+        <div class="content-section">
+            <h2 class="section-title">🎯 Review System Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <div class="feature-title">Verified Reviews Only</div>
+                    <div class="feature-desc">All reviews are from verified ride-takers</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <div class="feature-title">Photo & Video Reviews</div>
+                    <div class="feature-desc">Users can attach photos and videos to reviews</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <div class="feature-title">Category Ratings</div>
+                    <div class="feature-desc">Rate cleanliness, professionalism, safety, etc.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👍</div>
+                    <div class="feature-title">Helpful Voting</div>
+                    <div class="feature-desc">Other users can mark reviews as helpful</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚩</div>
+                    <div class="feature-title">Report Fake Reviews</div>
+                    <div class="feature-desc">Flag suspicious or fake reviews for investigation</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <div class="feature-title">Time-Based Display</div>
+                    <div class="feature-desc">See reviews sorted by most recent or helpful</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sample Reviews -->
+        <div class="content-section">
+            <h2 class="section-title">💬 Sample Verified Reviews</h2>
+            
+            <div class="review-sample">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">✓ Priya Sharma</div>
+                        <div class="review-rating">⭐⭐⭐⭐⭐ 5 Stars</div>
+                    </div>
+                    <div class="review-date">2 days ago</div>
+                </div>
+                <div class="review-text">"Excellent service! The driver was very professional, the vehicle was clean and comfortable. Reached on time. Will definitely use GoPro again!"</div>
+                <span class="review-badge">✓ Verified Rider</span>
+            </div>
+
+            <div class="review-sample">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">✓ Rahul Verma</div>
+                        <div class="review-rating">⭐⭐⭐⭐⭐ 5 Stars</div>
+                    </div>
+                    <div class="review-date">1 week ago</div>
+                </div>
+                <div class="review-text">"Great experience! The app is very user-friendly. Driver was courteous and knew all the routes well. Competitive pricing. Highly recommended!"</div>
+                <span class="review-badge">✓ Verified Rider</span>
+            </div>
+
+            <div class="review-sample">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">✓ Anjali Gupta</div>
+                        <div class="review-rating">⭐⭐⭐⭐ 4 Stars</div>
+                    </div>
+                    <div class="review-date">1 week ago</div>
+                </div>
+                <div class="review-text">"Good service overall. Driver was friendly and AC was nice. Only issue was the ride took slightly longer due to traffic, but driver communicated well."</div>
+                <span class="review-badge">✓ Verified Rider</span>
+            </div>
+
+            <div class="review-sample">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">✓ Vikram Singh</div>
+                        <div class="review-rating">⭐⭐⭐⭐⭐ 5 Stars</div>
+                    </div>
+                    <div class="review-date">2 weeks ago</div>
+                </div>
+                <div class="review-text">"Perfect! Used GoPro for airport transfer. Very reliable, driver was early, vehicle was immaculate. Payment was transparent. Worth every penny!"</div>
+                <span class="review-badge">✓ Verified Rider</span>
+            </div>
+        </div>
+
+        <!-- Rating System Features -->
+        <div class="content-section">
+            <h2 class="section-title">🛠️ Rating & Review Features</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Category-based Ratings:</strong> Rate drivers on cleanliness, professionalism, safety, communication, and vehicle condition</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Anonymous Option:</strong> Choose to post anonymously if desired</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Edit & Delete:</strong> Modify or delete your review within 30 days</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Photos & Videos:</strong> Upload up to 5 photos or 2 videos per review</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Automatic Posting:</strong> Reviews automatically post 24 hours after ride</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Filter by Route:</strong> Find reviews for specific pickup-dropoff routes</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Driver Response:</strong> Drivers can respond to reviews with explanations</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Rewards for Reviews:</strong> Earn points for posting verified reviews</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Rate -->
+        <div class="content-section">
+            <h2 class="section-title">📖 How to Rate & Review</h2>
+            <div class="step-cards">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Complete Ride</div>
+                    <div class="step-desc">Finish your ride and exit app</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Rate Driver</div>
+                    <div class="step-desc">Give 1-5 stars rating</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Write Review</div>
+                    <div class="step-desc">Share your experience (optional)</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Add Media</div>
+                    <div class="step-desc">Upload photos/videos (optional)</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Submit</div>
+                    <div class="step-desc">Tap submit to post review</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Earn Points</div>
+                    <div class="step-desc">Get 10 loyalty points!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating Impact -->
+        <div class="content-section">
+            <h2 class="section-title">📊 How Ratings Affect Drivers</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Driver Rating</th>
+                        <th>Status</th>
+                        <th>Benefits</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>4.8+ ⭐</td>
+                        <td>🏆 Elite Driver</td>
+                        <td>15% bonus, priority rides, badges</td>
+                        <td>Maintained</td>
+                    </tr>
+                    <tr>
+                        <td>4.5-4.8 ⭐</td>
+                        <td>⭐ Top Rated</td>
+                        <td>10% bonus, positive badges</td>
+                        <td>Encouraged</td>
+                    </tr>
+                    <tr>
+                        <td>4.0-4.5 ⭐</td>
+                        <td>✓ Good</td>
+                        <td>Standard fares and benefits</td>
+                        <td>Supported</td>
+                    </tr>
+                    <tr>
+                        <td>Below 4.0 ⭐</td>
+                        <td>⚠️ Warning</td>
+                        <td>Training offered, reduced rides</td>
+                        <td>Intervention</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Quality Assurance -->
+        <div class="content-section">
+            <h2 class="section-title">✨ Review Quality Assurance</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Fake Review Detection:</strong> AI scans for suspicious patterns and duplicate reviews</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Manual Verification:</strong> Our team reviews flagged or reported reviews</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Spam Filter:</strong> Removes inappropriate language and spam</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Driver Response Period:</strong> 5 days for driver to respond to negative reviews</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Appeal Process:</strong> Drivers can appeal unreasonable negative reviews</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text"><strong>Bias Prevention:</strong> We monitor for biased or discriminatory reviews</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="content-section">
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="window.location.href='landing.html'">← Back to Landing</button>
+                <button class="btn btn-primary" onclick="window.location.href='rider-dashboard-new.html'">Book & Review Rides</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

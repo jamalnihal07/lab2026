@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - GoPro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Authentication Check -->
+    <script>
+        const USER_KEY = 'gopro_user';
+        const user = sessionStorage.getItem(USER_KEY);
+        if (!user) {
+            alert('Please login to access this page');
+            window.location.href = 'landing.html';
+        }
+        const loggedInUser = JSON.parse(user || '{}');
+        if (loggedInUser.type && loggedInUser.type !== 'admin') {
+            alert('This page is for admins only');
+            window.location.href = 'index.html';
+        }
+    </script>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar admin-sidebar">
+            <div class="sidebar-header">
+                <h1 class="app-title-small">🚗 GoPro</h1>
+                <span class="admin-badge">ADMIN</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" onclick="switchAdminSection('overview')">
+                    <span class="icon">📊</span> Overview
+                </a>
+                <a href="#" class="nav-link" onclick="switchAdminSection('users')">
+                    <span class="icon">👥</span> Users
+                </a>
+                <a href="#" class="nav-link" onclick="switchAdminSection('drivers')">
+                    <span class="icon">🚗</span> Drivers
+                </a>
+                <a href="#" class="nav-link" onclick="switchAdminSection('rides')">
+                    <span class="icon">📍</span> Rides
+                </a>
+                <a href="#" class="nav-link" onclick="switchAdminSection('payments')">
+                    <span class="icon">💳</span> Payments
+                </a>
+                <a href="#" class="nav-link" onclick="switchAdminSection('reports')">
+                    <span class="icon">📈</span> Reports
+                </a>
+                <a href="#" class="nav-link" onclick="switchAdminSection('support')">
+                    <span class="icon">🎧</span> Support
+                </a>
+                <a href="#" class="nav-link" onclick="switchAdminSection('settings')">
+                    <span class="icon">⚙️</span> Settings
+                </a>
+                <a href="#" class="nav-link" onclick="logout()">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content admin-content">
+            <!-- Header -->
+            <header class="header admin-header">
+                <div class="header-left">
+                    <h2 id="adminPageTitle">Admin Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <input type="text" class="search-box" placeholder="Search...">
+                    <div class="notification-bell">
+                        <span class="icon">🔔</span>
+                        <span class="notification-badge" id="adminNotificationCount">3</span>
+                    </div>
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/40" alt="Admin">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section class="content-section active" id="overviewSection">
+                <div class="admin-grid">
+                    <!-- KPI Cards -->
+                    <div class="kpi-card">
+                        <h3>Total Users</h3>
+                        <p class="kpi-value" id="totalUsers">1,245</p>
+                        <p class="kpi-change">↑ 12% this month</p>
+                    </div>
+                    <div class="kpi-card">
+                        <h3>Active Drivers</h3>
+                        <p class="kpi-value" id="activeDrivers">342</p>
+                        <p class="kpi-change">↑ 8% this month</p>
+                    </div>
+                    <div class="kpi-card">
+                        <h3>Today's Revenue</h3>
+                        <p class="kpi-value" id="todayRevenue">₹45,320</p>
+                        <p class="kpi-change">↑ 15% vs yesterday</p>
+                    </div>
+                    <div class="kpi-card">
+                        <h3>Completed Rides</h3>
+                        <p class="kpi-value" id="completedRides">892</p>
+                        <p class="kpi-change">↑ 20% this month</p>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Revenue Trend (30 Days)</h3>
+                        <div id="revenueChart" class="chart-placeholder">
+                            <svg viewBox="0 0 400 200">
+                                <polyline points="0,150 50,100 100,120 150,80 200,90 250,40 300,50 350,30 400,60" 
+                                          fill="none" stroke="#FF6B6B" stroke-width="2"/>
+                                <polyline points="0,200 50,150 100,170 150,130 200,140 250,90 300,100 350,80 400,110" 
+                                          fill="rgba(255,107,107,0.1)" stroke="none"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Ride Status Distribution</h3>
+                        <div class="status-distribution">
+                            <div class="status-item">
+                                <span>Completed</span>
+                                <div class="progress-bar"><div style="width: 75%"></div></div>
+                                <span>75%</span>
+                            </div>
+                            <div class="status-item">
+                                <span>Cancelled</span>
+                                <div class="progress-bar"><div style="width: 15%"></div></div>
+                                <span>15%</span>
+                            </div>
+                            <div class="status-item">
+                                <span>No Show</span>
+                                <div class="progress-bar"><div style="width: 10%"></div></div>
+                                <span>10%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-section">
+                    <h3>Recent Activity</h3>
+                    <div id="adminActivityList" class="activity-list">
+                        <div class="activity-item">
+                            <span class="activity-icon">🚗</span>
+                            <div class="activity-details">
+                                <p>New ride booked - U001 to U002</p>
+                                <span class="time">2 minutes ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section class="content-section" id="usersSection">
+                <div class="section-header">
+                    <h2>User Management</h2>
+                    <button class="btn btn-secondary" onclick="openUserForm()">+ Add User</button>
+                </div>
+                <div class="filters">
+                    <input type="text" id="userSearchBox" placeholder="Search users..." onkeyup="searchUsers()">
+                    <select id="userStatusFilter" onchange="filterUsers()">
+                        <option value="all">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Rides</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                        <tr>
+                            <td>U001</td>
+                            <td>Rahul Sharma</td>
+                            <td>rahul@email.com</td>
+                            <td>9876543210</td>
+                            <td>25</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="btn-action" onclick="editUser('U001')">Edit</button>
+                                <button class="btn-action danger" onclick="deleteUser('U001')">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Drivers Section -->
+            <section class="content-section" id="driversSection">
+                <div class="section-header">
+                    <h2>Driver Management</h2>
+                    <button class="btn btn-secondary" onclick="openDriverForm()">+ Add Driver</button>
+                </div>
+                <div class="filters">
+                    <input type="text" id="driverSearchBox" placeholder="Search drivers..." onkeyup="searchDrivers()">
+                    <select id="driverStatusFilter" onchange="filterDrivers()">
+                        <option value="all">All Status</option>
+                        <option value="verified">Verified</option>
+                        <option value="pending">Pending</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Driver ID</th>
+                            <th>Name</th>
+                            <th>Vehicle</th>
+                            <th>Rating</th>
+                            <th>Total Rides</th>
+                            <th>Verification</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="driversTable">
+                        <tr>
+                            <td>D001</td>
+                            <td>Anuj Singh</td>
+                            <td>DL-01-AA-0001</td>
+                            <td>4.8 ⭐</td>
+                            <td>156</td>
+                            <td><span class="badge badge-success">Verified</span></td>
+                            <td>
+                                <button class="btn-action" onclick="editDriver('D001')">Edit</button>
+                                <button class="btn-action warning" onclick="suspendDriver('D001')">Suspend</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Rides Section -->
+            <section class="content-section" id="ridesSection">
+                <div class="section-header">
+                    <h2>Rides Management</h2>
+                </div>
+                <div class="filters">
+                    <select id="ridesStatusFilter" onchange="filterRides()">
+                        <option value="all">All Rides</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="active">Active</option>
+                    </select>
+                    <input type="date" id="ridesDateFilter" onchange="filterRides()">
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ride ID</th>
+                            <th>User</th>
+                            <th>Driver</th>
+                            <th>Fare</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ridesTable">
+                        <tr>
+                            <td>R001</td>
+                            <td>Rahul Sharma</td>
+                            <td>Anuj Singh</td>
+                            <td>₹245</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                            <td>2024-01-15</td>
+                            <td>
+                                <button class="btn-action" onclick="viewRideDetails('R001')">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Payments Section -->
+            <section class="content-section" id="paymentsSection">
+                <div class="section-header">
+                    <h2>Payment Management</h2>
+                </div>
+                <div class="filters">
+                    <select id="paymentStatusFilter" onchange="filterPayments()">
+                        <option value="all">All Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="failed">Failed</option>
+                    </select>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>User</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentsTable">
+                        <tr>
+                            <td>P001</td>
+                            <td>Rahul Sharma</td>
+                            <td>₹245</td>
+                            <td>Card</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                            <td>2024-01-15 14:30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Reports Section -->
+            <section class="content-section" id="reportsSection">
+                <div class="section-header">
+                    <h2>Reports & Analytics</h2>
+                </div>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>Generate Report</h3>
+                        <form onsubmit="generateReport(event)">
+                            <div class="form-group">
+                                <label for="reportType">Report Type</label>
+                                <select id="reportType">
+                                    <option value="revenue">Revenue Report</option>
+                                    <option value="users">User Report</option>
+                                    <option value="drivers">Driver Report</option>
+                                    <option value="rides">Rides Report</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reportDateFrom">From Date</label>
+                                <input type="date" id="reportDateFrom">
+                            </div>
+                            <div class="form-group">
+                                <label for="reportDateTo">To Date</label>
+                                <input type="date" id="reportDateTo">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Generate</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Support Section -->
+            <section class="content-section" id="supportSection">
+                <div class="section-header">
+                    <h2>Support Tickets</h2>
+                </div>
+                <div class="filters">
+                    <select id="ticketStatusFilter" onchange="filterTickets()">
+                        <option value="all">All Tickets</option>
+                        <option value="open">Open</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>User</th>
+                            <th>Issue</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ticketsTable">
+                        <tr>
+                            <td>T001</td>
+                            <td>Rahul Sharma</td>
+                            <td>Payment Failed</td>
+                            <td><span class="priority high">High</span></td>
+                            <td><span class="badge badge-warning">Open</span></td>
+                            <td>
+                                <button class="btn-action" onclick="resolveTicket('T001')">Resolve</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="content-section" id="settingsSection">
+                <div class="section-header">
+                    <h2>System Settings</h2>
+                </div>
+                <div class="settings-form">
+                    <form onsubmit="saveSettings(event)">
+                        <div class="settings-group">
+                            <h3>Fare Settings</h3>
+                            <div class="form-group">
+                                <label for="baseFare">Base Fare (₹)</label>
+                                <input type="number" id="baseFare" value="50" step="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="perKmRate">Per KM Rate (₹)</label>
+                                <input type="number" id="perKmRate" value="12" step="1">
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3>Commission Settings</h3>
+                            <div class="form-group">
+                                <label for="adminCommission">Admin Commission (%)</label>
+                                <input type="number" id="adminCommission" value="20" step="1" max="100">
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3>App Settings</h3>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="maintenanceMode" onchange="toggleMaintenance()">
+                                    Maintenance Mode
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="bookingsEnabled" checked>
+                                    Allow New Bookings
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

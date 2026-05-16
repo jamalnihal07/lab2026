@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupons & Offers - GoPro</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .detail-header {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44B3AA 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .detail-header .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .detail-header h1 {
+            font-size: 48px;
+            margin: 0;
+            font-weight: bold;
+        }
+        .detail-header p {
+            font-size: 18px;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .detail-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section h2 {
+            font-size: 32px;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            border-left: 4px solid #4ECDC4;
+            padding-left: 15px;
+        }
+        .coupon-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .coupon-card {
+            background: white;
+            border: 2px dashed #4ECDC4;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .coupon-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4ECDC4, #44B3AA);
+        }
+        .coupon-card h3 {
+            color: #4ECDC4;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0 5px 0;
+            letter-spacing: 2px;
+        }
+        .coupon-code {
+            background: #f0f0f0;
+            border: 1px solid #4ECDC4;
+            color: #4ECDC4;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .coupon-discount {
+            font-size: 28px;
+            color: #4ECDC4;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .coupon-details {
+            font-size: 13px;
+            color: #666;
+            margin: 10px 0 0 0;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .benefit-card {
+            background: #f0fffe;
+            border-left: 4px solid #4ECDC4;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .benefit-card h4 {
+            color: #4ECDC4;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .benefit-card p {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44B3AA 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .stat-card .label {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .feature-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ECDC4;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44B3AA 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+        }
+        .btn-secondary {
+            background: white;
+            color: #4ECDC4;
+            border: 2px solid #4ECDC4;
+        }
+        .btn-secondary:hover {
+            background: #f0fffe;
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-header">
+        <div class="icon">🎟️</div>
+        <h1>Exclusive Coupons & Offers</h1>
+        <p>Save big on every ride with amazing discounts and promotional offers</p>
+    </div>
+
+    <div class="detail-container">
+        <!-- Active Coupons -->
+        <div class="section">
+            <h2>Active Coupon Codes</h2>
+            <div class="coupon-cards">
+                <div class="coupon-card">
+                    <div class="coupon-discount">50%</div>
+                    <div class="coupon-code">WELCOME50</div>
+                    <p style="color: #4ECDC4; font-weight: bold;">New User Offer</p>
+                    <div class="coupon-details">Max: Rs. 200 | Valid: 1st ride</div>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-discount">SAVE50</div>
+                    <div class="coupon-code">SAVE50</div>
+                    <p style="color: #4ECDC4; font-weight: bold;">10% Flat Discount</p>
+                    <div class="coupon-details">Max: Rs. 50 | Valid: Anytime</div>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-discount">RIDE25</div>
+                    <div class="coupon-code">RIDE25</div>
+                    <p style="color: #4ECDC4; font-weight: bold;">5% Off</p>
+                    <div class="coupon-details">Max: Rs. 25 | Valid: Anytime</div>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-discount">₹500</div>
+                    <div class="coupon-code">REFER500</div>
+                    <p style="color: #4ECDC4; font-weight: bold;">Referral Bonus</p>
+                    <div class="coupon-details">Per friend | Total: ₹5,000</div>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-discount">30%</div>
+                    <div class="coupon-code">MONDAY30</div>
+                    <p style="color: #4ECDC4; font-weight: bold;">Monday Special</p>
+                    <div class="coupon-details">Max: Rs. 150 | Every Monday</div>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-discount">FLAT</div>
+                    <div class="coupon-code">EVENING</div>
+                    <p style="color: #4ECDC4; font-weight: bold;">Evening Offers</p>
+                    <div class="coupon-details">5-8 PM | Rs. 25-50 off</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Use Coupons -->
+        <div class="section">
+            <h2>Why Use GoPro Coupons?</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">50+</div>
+                    <div class="label">Active Offers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">30%</div>
+                    <div class="label">Max Savings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">10M+</div>
+                    <div class="label">Used Monthly</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">₹500</div>
+                    <div class="label">Max Referral</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Benefits -->
+        <div class="section">
+            <h2>Key Benefits</h2>
+            <ul class="feature-list">
+                <li><strong>First Ride 50% Off:</strong> New users get WELCOME50 coupon</li>
+                <li><strong>Everyday Discounts:</strong> SAVE50 and RIDE25 work every single day</li>
+                <li><strong>Referral Rewards:</strong> Get Rs. 500 per friend (up to Rs. 5,000/month)</li>
+                <li><strong>Time-based Offers:</strong> Special discounts during peak/off-peak hours</li>
+                <li><strong>Loyalty Program:</strong> Earn points on every ride, redeem for discounts</li>
+                <li><strong>Festival Specials:</strong> Extra discounts during holidays and festivals</li>
+                <li><strong>No Minimum Ride:</strong> Coupons valid on all ride amounts</li>
+                <li><strong>Multiple Uses:</strong> Most coupons can be used multiple times</li>
+            </ul>
+        </div>
+
+        <!-- How Coupons Work -->
+        <div class="section">
+            <h2>How to Use Coupons</h2>
+            <div class="benefit-card">
+                <h4>Step 1: Book a Ride</h4>
+                <p>Enter your pickup and dropoff locations as normal.</p>
+            </div>
+            <div class="benefit-card">
+                <h4>Step 2: Enter Coupon Code</h4>
+                <p>During booking, find the "Promo Code" field and enter your coupon code.</p>
+            </div>
+            <div class="benefit-card">
+                <h4>Step 3: See Discount</h4>
+                <p>Fare will automatically reduce. You'll see the discount amount clearly.</p>
+            </div>
+            <div class="benefit-card">
+                <h4>Step 4: Complete Payment</h4>
+                <p>Pay the discounted fare and enjoy your ride!</p>
+            </div>
+        </div>
+
+        <!-- Coupon Types -->
+        <div class="section">
+            <h2>Types of Offers Available</h2>
+            <div class="benefit-card">
+                <h4>🎁 New User Offers</h4>
+                <p>Welcome 50% discount on first ride. No referral needed. Valid for new GoPro users only.</p>
+            </div>
+            <div class="benefit-card">
+                <h4>📅 Time-based Offers</h4>
+                <p>Monday Special 30% off, Evening Offers 5-8 PM, Weekend deals, and more throughout the week.</p>
+            </div>
+            <div class="benefit-card">
+                <h4>👥 Referral Bonus</h4>
+                <p>Invite friends and earn Rs. 500 each. They get 50% off, you get Rs. 500. Win-win!</p>
+            </div>
+            <div class="benefit-card">
+                <h4>💎 Loyalty Rewards</h4>
+                <p>Earn loyalty points on every ride. Every Rs. 100 = 1 point. Redeem 100 points = Rs. 50 discount</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🎉 Festival Specials</h4>
+                <p>Extra discounts during Diwali, Christmas, New Year, and other major festivals.</p>
+            </div>
+            <div class="benefit-card">
+                <h4>💳 Payment Offers</h4>
+                <p>Extra 5% off when paying via specific UPI apps or credit cards. Partner bank offers.</p>
+            </div>
+        </div>
+
+        <!-- Savings Stats -->
+        <div class="section">
+            <h2>How Much Can You Save?</h2>
+            <div class="benefit-card">
+                <h4>Monthly Average Savings (10 rides/month)</h4>
+                <p><strong>With Coupons: Rs. 150/month</strong> (15% avg discount)<br>
+                <strong>Without Coupons: Rs. 0/month</strong><br>
+                <strong>Annual Savings: Rs. 1,800+</strong></p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='landing.html'">← Back to Landing</button>
+            <button class="btn btn-primary" onclick="window.location.href='rider-dashboard-new.html'">Book a Ride →</button>
+        </div>
+    </div>
+</body>
+</html>

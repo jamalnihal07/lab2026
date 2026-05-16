@@ -1,0 +1,81 @@
+{
+  "users": [
+    {
+      "id": "U001",
+      "name": "Rahul Sharma",
+      "email": "rahul@email.com",
+      "phone": "9876543210",
+      "password": "pass123",
+      "type": "rider",
+      "totalRides": 25,
+      "avgRating": 4.5,
+      "wallet": 2500,
+      "totalSpent": 5000,
+      "joinDate": "2024-01"
+    },
+    {
+      "id": "U002",
+      "name": "Priya Patel",
+      "email": "priya@email.com",
+      "phone": "9876543211",
+      "password": "pass456",
+      "type": "rider",
+      "totalRides": 15,
+      "avgRating": 4.3,
+      "wallet": 1500,
+      "totalSpent": 3000,
+      "joinDate": "2024-02"
+    }
+  ],
+  "drivers": [
+    {
+      "id": "D001",
+      "name": "Anuj Singh",
+      "email": "anuj@email.com",
+      "phone": "9876543220",
+      "password": "driver123",
+      "type": "driver",
+      "totalRides": 156,
+      "avgRating": 4.8,
+      "vehicle": {
+        "type": "Sedan",
+        "registration": "DL-01-AA-0001",
+        "color": "White",
+        "model": "Hyundai Creta 2022"
+      },
+      "earnings": {
+        "today": 1250,
+        "week": 8500,
+        "month": 35000,
+        "total": 250000
+      },
+      "verified": true,
+      "status": "online"
+    }
+  ],
+  "rides": [
+    {
+      "id": "R001",
+      "userId": "U001",
+      "driverId": "D001",
+      "pickup": "Connaught Place, Delhi",
+      "dropoff": "Terminal 3, IGI Airport",
+      "distance": 18.5,
+      "fare": 245,
+      "status": "completed",
+      "date": "2024-01-15",
+      "rating": 5,
+      "passengerName": "Rahul Sharma",
+      "passengerRating": 5
+    }
+  ],
+  "admins": [
+    {
+      "id": "ADMIN001",
+      "email": "admin@gopro.com",
+      "password": "admin123",
+      "name": "Admin User",
+      "type": "admin"
+    }
+  ]
+}

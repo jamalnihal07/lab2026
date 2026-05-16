@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoPro - Feature Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .detail-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px 40px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.3);
+        }
+
+        .feature-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .feature-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .feature-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .feature-header p {
+            font-size: 20px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feature-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .feature-text h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .feature-text ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-text li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .feature-text li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #FF6B6B;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .demo-box {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 5px solid #FF6B6B;
+        }
+
+        .demo-box h3 {
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .demo-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.3);
+        }
+
+        .use-cases {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+
+        .use-cases h2 {
+            margin-bottom: 30px;
+            color: #1a1a1a;
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .use-case-card h4 {
+            margin-bottom: 10px;
+            color: #FF6B6B;
+        }
+
+        .feature-comparison {
+            margin: 40px 0;
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .comparison-table th {
+            background: #FF6B6B;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .detail-container {
+                padding: 40px 15px;
+            }
+
+            .feature-header h1 {
+                font-size: 36px;
+            }
+
+            .feature-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .feature-icon {
+                font-size: 60px;
+            }
+
+            .feature-text h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">🚗 GoPro</div>
+            <div class="nav-links">
+                <a href="landing.html" class="back-button">← Back to Landing</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="detail-container" id="featureContainer">
+        <!-- Content will be populated by JavaScript -->
+    </div>
+
+    <script>
+        const features = {
+            'fast': {
+                icon: '⚡',
+                title: 'Fast & Reliable',
+                subtitle: 'Get a ride in minutes with our efficient matching system and reliable drivers.',
+                description: 'Our advanced AI algorithm matches you with the nearest available driver in seconds. With thousands of drivers on the platform, you\'ll never wait long for a ride.',
+                benefits: [
+                    'Average wait time: 2-3 minutes',
+                    'Real-time driver location tracking',
+                    'Instant confirmation notifications',
+                    '99.2% on-time pickup rate',
+                    'Available 24/7',
+                    'Professional, verified drivers'
+                ],
+                useCases: [
+                    { title: 'Airport Rush', desc: 'Last-minute flight? Book a ride and be there in 10 mins' },
+                    { title: 'Office Commute', desc: 'Reliable rides for your daily 9-to-5 routine' },
+                    { title: 'Emergency Travel', desc: 'Quick response when you need to get somewhere fast' },
+                    { title: 'Social Events', desc: 'Never worry about leaving a party late' }
+                ],
+                stats: [
+                    { number: '2-3 min', label: 'Avg Wait Time' },
+                    { number: '99.2%', label: 'On-time Rate' },
+                    { number: '10k+', label: 'Active Drivers' },
+                    { number: '24/7', label: 'Availability' }
+                ]
+            },
+            'prices': {
+                icon: '💰',
+                title: 'Best Prices',
+                subtitle: 'Transparent pricing with no hidden charges. Use coupons for extra savings!',
+                description: 'We believe in transparent, fair pricing. Our rates are calculated based on distance, time, and vehicle type - nothing more, nothing less. Plus, use our exclusive promo codes to save on every ride.',
+                benefits: [
+                    'No hidden charges or surprise fees',
+                    'Transparent fare breakdown before booking',
+                    'Exclusive discounts and coupon codes',
+                    'Price comparison across vehicle types',
+                    'Surge pricing only during peak hours',
+                    'Loyalty rewards program'
+                ],
+                useCases: [
+                    { title: 'Budget Travel', desc: 'Bike rides starting from just Rs. 5/km' },
+                    { title: 'Group Travel', desc: 'Split costs with SUV rides for groups' },
+                    { title: 'Business Trips', desc: 'Transparent billing for corporate expense reports' },
+                    { title: 'Planned Trips', desc: 'Book in advance and lock in better prices' }
+                ],
+                stats: [
+                    { number: 'Rs. 5', label: 'Lowest Rate' },
+                    { number: '0', label: 'Hidden Charges' },
+                    { number: 'SAVE50', label: 'Save 10%' },
+                    { number: 'Up to 15%', label: 'With Loyalty' }
+                ]
+            },
+            'tracking': {
+                icon: '🗺️',
+                title: 'Real-time Tracking',
+                subtitle: 'Track your ride in real-time with our interactive map feature.',
+                description: 'Know exactly where your driver is at all times. Our interactive map shows your driver\'s location, route, and estimated arrival time, giving you complete peace of mind.',
+                benefits: [
+                    'Live GPS tracking of your driver',
+                    'Real-time route optimization',
+                    'Estimated arrival time (ETA)',
+                    'Share ride details with family/friends',
+                    'Emergency SOS button integrated',
+                    'Detailed ride history and map replay'
+                ],
+                useCases: [
+                    { title: 'Safety First', desc: 'Share live location with trusted contacts' },
+                    { title: 'Coordination', desc: 'Tell friends exactly when you\'ll arrive' },
+                    { title: 'Work Scheduling', desc: 'Accurate ETAs for planning your day' },
+                    { title: 'Investigation', desc: 'Complete ride record for expense claims' }
+                ],
+                stats: [
+                    { number: '< 1 sec', label: 'Update Frequency' },
+                    { number: '98.5%', label: 'Accuracy' },
+                    { number: '500m+', label: 'Range' },
+                    { number: '100%', label: 'Coverage' }
+                ]
+            },
+            'payment': {
+                icon: '💳',
+                title: 'Multiple Payment Methods',
+                subtitle: 'Pay with Wallet, UPI, Card, or Cash - choose what works best for you.',
+                description: 'We support every payment method you prefer. Choose between wallet, UPI apps, credit/debit cards, or good old cash - it\'s completely up to you.',
+                benefits: [
+                    'Support for 5+ payment methods',
+                    'Instant, secure transactions',
+                    'Saved payment methods for quick checkout',
+                    'Auto-recharge wallet option',
+                    '100% encrypted transactions',
+                    'Easy invoice generation'
+                ],
+                useCases: [
+                    { title: 'Cashless Riders', desc: 'Use UPI for instant, no-fuss payments' },
+                    { title: 'Corporate Accounts', desc: 'Bill rides directly to company account' },
+                    { title: 'Wallet Users', desc: 'Load balance once, pay multiple times' },
+                    { title: 'Cash Preferred', desc: 'Pay driver in cash, no digital needed' }
+                ],
+                stats: [
+                    { number: '5+', label: 'Payment Methods' },
+                    { number: '256-bit', label: 'Encryption' },
+                    { number: '0.1 sec', label: 'Processing Time' },
+                    { number: '100%', label: 'Secure' }
+                ]
+            },
+            'offers': {
+                icon: '🎟️',
+                title: 'Exclusive Offers',
+                subtitle: 'Enjoy special discounts and promo codes on every ride.',
+                description: 'We reward our loyal customers with exclusive deals. From referral bonuses to seasonal offers, there\'s always something to save on.',
+                benefits: [
+                    'Daily promo codes via email/app',
+                    'Referral bonus up to Rs. 500',
+                    'Weekend special discounts',
+                    'Birthday month exclusive offers',
+                    'Loyalty points on every ride',
+                    'First ride 50% off for new users'
+                ],
+                useCases: [
+                    { title: 'New User Bonus', desc: 'Get 50% off on your first 3 rides' },
+                    { title: 'Referral Rewards', desc: 'Earn Rs. 500 per friend you refer' },
+                    { title: 'Regular Commuters', desc: 'Weekly passes save up to 30%' },
+                    { title: 'Birthday Special', desc: 'Extra discount on your special day' }
+                ],
+                stats: [
+                    { number: '50%', label: 'New User Off' },
+                    { number: 'Rs. 500', label: 'Referral Bonus' },
+                    { number: '30%', label: 'Max Savings' },
+                    { number: '10+', label: 'Active Offers' }
+                ]
+            },
+            'rating': {
+                icon: '⭐',
+                title: 'Rated 4.8/5 Stars',
+                subtitle: 'Trusted by thousands of users. See why we\'re the best choice.',
+                description: 'Our commitment to excellence is reflected in our 4.8-star rating across 50,000+ reviews. Users love our reliability, safety, and service quality.',
+                benefits: [
+                    'Community-verified ratings and reviews',
+                    'Only genuine user feedback',
+                    'Transparent review system',
+                    'Driver and rider ratings',
+                    'Safety score displayed',
+                    'Quality assurance team monitors'
+                ],
+                useCases: [
+                    { title: 'Customer Trust', desc: 'Read real reviews from verified users' },
+                    { title: 'Driver Selection', desc: 'Choose drivers by their ratings' },
+                    { title: 'Safety Assurance', desc: 'Know the safety record of drivers' },
+                    { title: 'Quality Service', desc: 'Only best-rated drivers get more rides' }
+                ],
+                stats: [
+                    { number: '4.8', label: 'Average Rating' },
+                    { number: '50k+', label: 'Total Reviews' },
+                    { number: '98%', label: 'Positive' },
+                    { number: '5⭐', label: 'Most Common' }
+                ]
+            }
+        };
+
+        function getFeatureKey() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('type') || 'fast';
+        }
+
+        function renderFeature() {
+            const key = getFeatureKey();
+            const feature = features[key];
+
+            if (!feature) {
+                document.getElementById('featureContainer').innerHTML = '<p>Feature not found</p>';
+                return;
+            }
+
+            let html = `
+                <div class="feature-header">
+                    <div class="feature-icon">${feature.icon}</div>
+                    <h1>${feature.title}</h1>
+                    <p>${feature.subtitle}</p>
+                </div>
+
+                <div class="feature-content">
+                    <div class="feature-text">
+                        <h2>Why This Matters</h2>
+                        <p>${feature.description}</p>
+                        <h3 style="margin-top: 30px; margin-bottom: 15px;">Key Benefits</h3>
+                        <ul>
+                            ${feature.benefits.map(b => `<li>${b}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="demo-box">
+                        <h3>Live Demo</h3>
+                        <div class="demo-content">
+                            <p><strong>Experience this feature:</strong></p>
+                            <p>Book a ride now to see this feature in action!</p>
+                            <p style="margin-top: 15px; font-size: 14px; color: #666;">
+                                All features are available in your rider or driver dashboard after login.
+                            </p>
+                        </div>
+                        <button class="demo-button" onclick="window.location.href='index.html'">Try Now</button>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    ${feature.stats.map(s => `
+                        <div class="stat-card">
+                            <div class="stat-number">${s.number}</div>
+                            <div class="stat-label">${s.label}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="use-cases">
+                    <h2>Perfect For</h2>
+                    <div class="use-case-grid">
+                        ${feature.useCases.map(uc => `
+                            <div class="use-case-card">
+                                <h4>${uc.title}</h4>
+                                <p>${uc.desc}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('featureContainer').innerHTML = html;
+        }
+
+        // Render feature on page load
+        renderFeature();
+    </script>
+</body>
+</html>

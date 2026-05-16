@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard - GoPro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="app-title-small">🚗 GoPro</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" onclick="switchSection('driver-dashboard')">
+                    <span class="icon">🏠</span> Dashboard
+                </a>
+                <a href="#" class="nav-link" onclick="switchSection('available-rides')">
+                    <span class="icon">📍</span> Available Rides
+                </a>
+                <a href="#" class="nav-link" onclick="switchSection('current-ride')">
+                    <span class="icon">🚗</span> Current Ride
+                </a>
+                <a href="#" class="nav-link" onclick="switchSection('earnings')">
+                    <span class="icon">💵</span> Earnings
+                </a>
+                <a href="#" class="nav-link" onclick="switchSection('driver-profile')">
+                    <span class="icon">👤</span> Profile
+                </a>
+                <a href="#" class="nav-link" onclick="logout()">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="pageTitle">Driver Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <div class="online-status">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="onlineStatus" onchange="toggleOnlineStatus()">
+                            <span class="slider"></span>
+                        </label>
+                        <span id="statusText">Offline</span>
+                    </div>
+                    <div class="notification-bell">
+                        <span class="icon">🔔</span>
+                        <span class="notification-badge" id="notificationCount">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Driver Dashboard Section -->
+            <section class="content-section active" id="driverDashboardSection">
+                <div class="dashboard-grid">
+                    <!-- Quick Stats -->
+                    <div class="stats-card">
+                        <div class="stat">
+                            <h3>Today's Earnings</h3>
+                            <p class="stat-value" id="todayEarnings">₹0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stat">
+                            <h3>Total Rides</h3>
+                            <p class="stat-value" id="driverTotalRides">0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stat">
+                            <h3>Rating</h3>
+                            <p class="stat-value" id="driverRating">4.8 ⭐</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stat">
+                            <h3>Acceptance Rate</h3>
+                            <p class="stat-value" id="acceptanceRate">95%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="switchSection('available-rides')">🔄 View Requests</button>
+                        <button class="btn btn-secondary" onclick="switchSection('earnings')">📊 View Earnings</button>
+                        <button class="btn btn-secondary" onclick="switchSection('current-ride')">🗺️ Current Ride</button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <div id="driverActivityList" class="activity-list">
+                        <p class="empty-state">No recent activity</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Available Rides Section -->
+            <section class="content-section" id="availableRidesSection">
+                <div class="available-rides-container">
+                    <h2>Available Ride Requests</h2>
+                    <div class="rides-filter">
+                        <select id="ridesFilter" onchange="filterAvailableRides()">
+                            <option value="all">All Requests</option>
+                            <option value="nearby">Nearby (5km)</option>
+                            <option value="pool">Pool Rides</option>
+                        </select>
+                    </div>
+                    <div id="availableRidesList" class="rides-list">
+                        <p class="empty-state">No available rides</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Current Ride Section -->
+            <section class="content-section" id="currentRideSection">
+                <div class="current-ride-container">
+                    <h2>Current Ride Details</h2>
+                    <div id="currentRideInfo" class="ride-details-card">
+                        <p class="empty-state">No active ride</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Earnings Section -->
+            <section class="content-section" id="earningsSection">
+                <div class="earnings-container">
+                    <h2>Earnings & Analytics</h2>
+                    
+                    <div class="earnings-summary">
+                        <div class="earnings-card">
+                            <h3>Today</h3>
+                            <p class="amount" id="earningsToday">₹0</p>
+                        </div>
+                        <div class="earnings-card">
+                            <h3>This Week</h3>
+                            <p class="amount" id="earningsWeek">₹0</p>
+                        </div>
+                        <div class="earnings-card">
+                            <h3>This Month</h3>
+                            <p class="amount" id="earningsMonth">₹0</p>
+                        </div>
+                        <div class="earnings-card">
+                            <h3>Total</h3>
+                            <p class="amount" id="earningsTotal">₹0</p>
+                        </div>
+                    </div>
+
+                    <div class="earnings-details">
+                        <h3>Breakdown</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Rides</th>
+                                    <th>Distance</th>
+                                    <th>Earnings</th>
+                                </tr>
+                            </thead>
+                            <tbody id="earningsTable">
+                                <tr>
+                                    <td colspan="4" class="empty-state">No earnings data</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Driver Profile Section -->
+            <section class="content-section" id="driverProfileSection">
+                <div class="driver-profile-container">
+                    <h2>Driver Profile</h2>
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <img src="https://via.placeholder.com/100" alt="Profile" class="profile-pic">
+                            <div class="profile-info">
+                                <h3 id="driverName">Driver Name</h3>
+                                <p id="driverEmail">driver@email.com</p>
+                                <p id="driverPhone">+91 9876543210</p>
+                            </div>
+                        </div>
+
+                        <!-- Verification Status -->
+                        <div class="verification-section">
+                            <h4>Verification Status</h4>
+                            <div class="verification-item">
+                                <span>License</span>
+                                <span class="status verified">✓ Verified</span>
+                            </div>
+                            <div class="verification-item">
+                                <span>Document</span>
+                                <span class="status verified">✓ Verified</span>
+                            </div>
+                            <div class="verification-item">
+                                <span>Background Check</span>
+                                <span class="status verified">✓ Verified</span>
+                            </div>
+                        </div>
+
+                        <!-- Vehicle Info -->
+                        <div class="vehicle-section">
+                            <h4>Vehicle Information</h4>
+                            <div class="vehicle-card">
+                                <p><strong>Vehicle Type:</strong> <span id="vehicleType">Sedan</span></p>
+                                <p><strong>Registration:</strong> <span id="vehicleReg">DL-01-AA-0000</span></p>
+                                <p><strong>Color:</strong> <span id="vehicleColor">White</span></p>
+                                <p><strong>Model:</strong> <span id="vehicleModel">Hyundai Creta 2022</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Edit Profile -->
+                        <form class="profile-form" onsubmit="updateDriverProfile(event)">
+                            <h4>Edit Profile</h4>
+                            <div class="form-group">
+                                <label for="editDriverName">Full Name</label>
+                                <input type="text" id="editDriverName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDriverPhone">Phone Number</label>
+                                <input type="tel" id="editDriverPhone" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="driver-dashboard.js"></script>
+</body>
+</html>

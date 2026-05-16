@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - GoPro</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .detail-header {
+            background: linear-gradient(135deg, #7B2CBF 0%, #9D4EDD 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .detail-header .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .detail-header h1 {
+            font-size: 48px;
+            margin: 0;
+            font-weight: bold;
+        }
+        .detail-header p {
+            font-size: 18px;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .detail-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section h2 {
+            font-size: 32px;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            border-left: 4px solid #7B2CBF;
+            padding-left: 15px;
+        }
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: #7B2CBF;
+            box-shadow: 0 8px 20px rgba(123, 44, 191, 0.15);
+        }
+        .feature-card .icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        .feature-card h3 {
+            color: #7B2CBF;
+            margin: 0 0 10px 0;
+            font-size: 20px;
+        }
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .benefit-card {
+            background: #f5f0ff;
+            border-left: 4px solid #7B2CBF;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .benefit-card h4 {
+            color: #7B2CBF;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .benefit-card p {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #7B2CBF 0%, #9D4EDD 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .stat-card .label {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .feature-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #7B2CBF;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .data-box {
+            background: #f5f0ff;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #7B2CBF;
+        }
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .data-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .data-item .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7B2CBF;
+            margin-bottom: 5px;
+        }
+        .data-item .label {
+            font-size: 12px;
+            color: #666;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #7B2CBF 0%, #9D4EDD 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(123, 44, 191, 0.3);
+        }
+        .btn-secondary {
+            background: white;
+            color: #7B2CBF;
+            border: 2px solid #7B2CBF;
+        }
+        .btn-secondary:hover {
+            background: #f5f0ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-header">
+        <div class="icon">🛡️</div>
+        <h1>Admin Dashboard & Control Center</h1>
+        <p>Comprehensive platform management, monitoring, and analytics tools</p>
+    </div>
+
+    <div class="detail-container">
+        <!-- Platform Overview -->
+        <div class="section">
+            <h2>Platform Overview & Metrics</h2>
+            <div class="data-box">
+                <div class="data-grid">
+                    <div class="data-item">
+                        <div class="value">1M+</div>
+                        <div class="label">Active Users</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="value">50K+</div>
+                        <div class="label">Active Drivers</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="value">50K+</div>
+                        <div class="label">Daily Rides</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="value">₹5Cr+</div>
+                        <div class="label">Daily Revenue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Features -->
+        <div class="section">
+            <h2>Admin Control Features</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h3>Analytics & Reports</h3>
+                    <p>Real-time dashboards, revenue tracking, user metrics, trend analysis</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">👥</div>
+                    <h3>User Management</h3>
+                    <p>Manage users, drivers, verify documents, handle complaints, ban abusers</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">💰</div>
+                    <h3>Payment Control</h3>
+                    <p>Monitor transactions, manage payouts, fraud detection, revenue tracking</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔍</div>
+                    <h3>Quality Monitoring</h3>
+                    <p>Track driver ratings, ride quality, customer complaints, resolution rates</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⚙️</div>
+                    <h3>System Configuration</h3>
+                    <p>Set fares, surge pricing, promotions, features, policies, business rules</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🚨</div>
+                    <h3>Emergency Management</h3>
+                    <p>Handle SOS alerts, fraud cases, safety incidents, dispute resolution</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Statistics -->
+        <div class="section">
+            <h2>Dashboard Statistics & KPIs</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">1M+</div>
+                    <div class="label">Total Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">4.8⭐</div>
+                    <div class="label">Avg Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">₹5Cr</div>
+                    <div class="label">Daily Revenue</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">99.9%</div>
+                    <div class="label">Uptime</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Modules -->
+        <div class="section">
+            <h2>Key Admin Modules</h2>
+            <div class="benefit-card">
+                <h4>📈 Analytics Dashboard</h4>
+                <p>Real-time graphs, charts, and metrics for rides, revenue, users, and performance</p>
+            </div>
+            <div class="benefit-card">
+                <h4>👥 User Management</h4>
+                <p>View all users, verify drivers, check documents, manage accounts, handle disputes</p>
+            </div>
+            <div class="benefit-card">
+                <h4>💳 Payment System</h4>
+                <p>Monitor all transactions, manage driver payouts, set commission rates, detect fraud</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🎟️ Promotion Manager</h4>
+                <p>Create coupons, manage offers, set discounts, track promotion effectiveness</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🚗 Ride Management</h4>
+                <p>View all rides, track status, handle cancellations, resolve disputes</p>
+            </div>
+            <div class="benefit-card">
+                <h4>⚙️ System Settings</h4>
+                <p>Configure fares, surge pricing, policies, features, business rules, emergency contacts</p>
+            </div>
+            <div class="benefit-card">
+                <h4>📋 Reports & Export</h4>
+                <p>Generate reports, export data, track KPIs, financial reports, user behavior analysis</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🔒 Security & Compliance</h4>
+                <p>Monitor security, manage access controls, audit logs, compliance reporting</p>
+            </div>
+        </div>
+
+        <!-- Admin Capabilities -->
+        <div class="section">
+            <h2>Administrative Capabilities</h2>
+            <ul class="feature-list">
+                <li><strong>User Verification:</strong> Verify driver documents, background checks, licenses</li>
+                <li><strong>Account Management:</strong> Create/suspend/delete user and driver accounts</li>
+                <li><strong>Fraud Detection:</strong> Monitor suspicious activity, flag fraudulent users</li>
+                <li><strong>Rating Override:</strong> Review contested ratings, handle rating disputes</li>
+                <li><strong>Payment Adjustments:</strong> Adjust payments, handle refunds, manage chargebacks</li>
+                <li><strong>Promotion Control:</strong> Create/edit/deactivate promotional coupons</li>
+                <li><strong>Pricing Management:</strong> Set base fares, surge multipliers, distance rates</li>
+                <li><strong>Driver Quality:</strong> Monitor driver ratings, handle complaints, suspend bad drivers</li>
+                <li><strong>Emergency Response:</strong> Handle SOS calls, coordinate with authorities</li>
+                <li><strong>System Monitoring:</strong> Monitor app performance, server health, uptime</li>
+            </ul>
+        </div>
+
+        <!-- Monitoring & Reporting -->
+        <div class="section">
+            <h2>Monitoring & Reporting Tools</h2>
+            <div class="benefit-card">
+                <h4>📊 Real-time Dashboard</h4>
+                <p>Live metrics: Active rides, online drivers, current revenue, system health</p>
+            </div>
+            <div class="benefit-card">
+                <h4>📈 Revenue Reports</h4>
+                <p>Daily/weekly/monthly revenue breakdown, commission tracking, payment history</p>
+            </div>
+            <div class="benefit-card">
+                <h4>👥 User Analytics</h4>
+                <p>User growth, retention, active users, churn analysis, demographic insights</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🚗 Ride Analytics</h4>
+                <p>Ride volume, average fare, peak hours, popular routes, ride completion rates</p>
+            </div>
+            <div class="benefit-card">
+                <h4>💬 Quality Metrics</h4>
+                <p>Average rating, complaint rate, resolution time, driver performance scores</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🔐 Audit Logs</h4>
+                <p>Track all admin actions, system changes, user modifications, security events</p>
+            </div>
+        </div>
+
+        <!-- Security Features -->
+        <div class="section">
+            <h2>Security & Compliance</h2>
+            <ul class="feature-list">
+                <li><strong>Access Control:</strong> Role-based permissions (Super Admin, Admin, Moderator)</li>
+                <li><strong>Audit Trails:</strong> Complete logging of all admin actions and changes</li>
+                <li><strong>Data Encryption:</strong> All sensitive data encrypted with 256-bit SSL</li>
+                <li><strong>Fraud Detection:</strong> AI-powered fraud detection and prevention</li>
+                <li><strong>DDoS Protection:</strong> Advanced security against cyber attacks</li>
+                <li><strong>Compliance:</strong> GDPR compliant, data privacy adherence, legal compliance</li>
+                <li><strong>Backup & Recovery:</strong> Automatic daily backups, disaster recovery</li>
+                <li><strong>Activity Monitoring:</strong> Real-time monitoring of suspicious activities</li>
+            </ul>
+        </div>
+
+        <!-- Admin Roles -->
+        <div class="section">
+            <h2>Admin Roles & Permissions</h2>
+            <div class="benefit-card">
+                <h4>👤 Super Admin</h4>
+                <p>Full system access, manage other admins, financial control, system settings, emergency overrides</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🔧 Admin</h4>
+                <p>User management, ride management, promotion control, reporting, dispute resolution</p>
+            </div>
+            <div class="benefit-card">
+                <h4>👁️ Moderator</h4>
+                <p>Monitor content, review complaints, handle user disputes, safety monitoring</p>
+            </div>
+            <div class="benefit-card">
+                <h4>📊 Analyst</h4>
+                <p>Access analytics, generate reports, view dashboards, data analysis (read-only)</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='landing.html'">← Back to Landing</button>
+            <button class="btn btn-primary" onclick="window.location.href='admin-dashboard.html'">View Admin Dashboard →</button>
+        </div>
+    </div>
+</body>
+</html>

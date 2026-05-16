@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Features - GoPro</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .detail-header {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .detail-header .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .detail-header h1 {
+            font-size: 48px;
+            margin: 0;
+            font-weight: bold;
+        }
+        .detail-header p {
+            font-size: 18px;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .detail-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section h2 {
+            font-size: 32px;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+            padding-left: 15px;
+        }
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: #2196F3;
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.15);
+        }
+        .feature-card .icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        .feature-card h3 {
+            color: #2196F3;
+            margin: 0 0 10px 0;
+            font-size: 20px;
+        }
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .benefit-card {
+            background: #f5f9ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .benefit-card h4 {
+            color: #2196F3;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .benefit-card p {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .stat-card .label {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .feature-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2196F3;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .earnings-box {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .earnings-amount {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .earnings-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .earnings-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .earnings-item .amount {
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .earnings-item .label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
+        }
+        .btn-secondary {
+            background: white;
+            color: #2196F3;
+            border: 2px solid #2196F3;
+        }
+        .btn-secondary:hover {
+            background: #f5f9ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-header">
+        <div class="icon">👨‍💼</div>
+        <h1>Driver Dashboard & Features</h1>
+        <p>Powerful tools to earn more, manage efficiently, and grow as a driver</p>
+    </div>
+
+    <div class="detail-container">
+        <!-- Driver Earnings -->
+        <div class="section">
+            <div class="earnings-box">
+                <h2 style="margin-top: 0; margin-bottom: 20px; color: white;">DRIVER EARNINGS</h2>
+                <div class="earnings-amount">₹35,000</div>
+                <p style="margin: 10px 0;">Monthly Earnings (Average Driver)</p>
+                <div class="earnings-breakdown">
+                    <div class="earnings-item">
+                        <div class="amount">₹1,250</div>
+                        <div class="label">Today</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="amount">₹8,500</div>
+                        <div class="label">This Week</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="amount">₹35,000</div>
+                        <div class="label">This Month</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="amount">₹2,50,000</div>
+                        <div class="label">Total Earnings</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Driver Dashboard Features -->
+        <div class="section">
+            <h2>Key Driver Features</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h3>Analytics Dashboard</h3>
+                    <p>Real-time earnings, trip count, rating, and performance metrics</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📱</div>
+                    <h3>Ride Management</h3>
+                    <p>Accept/reject rides, manage schedule, view trip history</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📍</div>
+                    <h3>Live Location</h3>
+                    <p>Share location with riders, get navigation, find pickups easily</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⭐</div>
+                    <h3>Rating System</h3>
+                    <p>Monitor your driver rating, view rider feedback, improve service</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">💰</div>
+                    <h3>Payment & Withdrawals</h3>
+                    <p>Automatic payments, daily withdrawals, instant bank transfers</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🎖️</div>
+                    <h3>Bonus & Incentives</h3>
+                    <p>Earn bonuses for high ratings, ride targets, and performance</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Driver Statistics -->
+        <div class="section">
+            <h2>Driver Performance Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">4.8⭐</div>
+                    <div class="label">Avg Driver Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">50K+</div>
+                    <div class="label">Active Drivers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">₹35K</div>
+                    <div class="label">Avg Monthly Earnings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">95%</div>
+                    <div class="label">Acceptance Rate</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Tools -->
+        <div class="section">
+            <h2>Dashboard Tools & Options</h2>
+            <ul class="feature-list">
+                <li><strong>Online/Offline Toggle:</strong> Control when you're available for rides</li>
+                <li><strong>Accept/Reject Rides:</strong> Choose which rides to accept</li>
+                <li><strong>Trip History:</strong> View detailed history of all your rides</li>
+                <li><strong>Earnings Breakdown:</strong> See exactly how your earnings are calculated</li>
+                <li><strong>Rider Feedback:</strong> Read and respond to rider reviews</li>
+                <li><strong>Schedule Rides:</strong> Pre-book rides to maximize earnings</li>
+                <li><strong>Safe Ride Alerts:</strong> Get notified about suspicious activity</li>
+                <li><strong>Vehicle Maintenance:</strong> Track vehicle health and service schedule</li>
+            </ul>
+        </div>
+
+        <!-- Bonus Incentives -->
+        <div class="section">
+            <h2>Bonus & Incentives Program</h2>
+            <div class="benefit-card">
+                <h4>🎖️ Performance Bonus</h4>
+                <p>Earn extra Rs. 500-2,000 per week by hitting ride targets (25-50 rides)</p>
+            </div>
+            <div class="benefit-card">
+                <h4>⭐ Rating Bonus</h4>
+                <p>Maintain 4.8+ rating and earn Rs. 100-500 monthly bonus</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🚗 Vehicle Maintenance</h4>
+                <p>Rs. 2,000 monthly stipend for vehicle maintenance and fuel</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🏆 Top Driver Badge</h4>
+                <p>Get priority ride requests and special offers as a Top Driver (4.7+ rating)</p>
+            </div>
+            <div class="benefit-card">
+                <h4>👥 Referral Bonus</h4>
+                <p>Earn Rs. 1,000 for each driver friend you refer</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🎁 Seasonal Bonuses</h4>
+                <p>Extra earnings during festival season and peak demand periods</p>
+            </div>
+        </div>
+
+        <!-- Payment Options -->
+        <div class="section">
+            <h2>Payment & Withdrawal Options</h2>
+            <div class="benefit-card">
+                <h4>💳 Instant Withdrawal</h4>
+                <p>Withdraw earnings anytime to your bank account (available daily)</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🏦 Auto Daily Payment</h4>
+                <p>Optional: Automatic daily transfer of earnings to your bank</p>
+            </div>
+            <div class="benefit-card">
+                <h4>💰 Weekly Payment</h4>
+                <p>Every Sunday, your weekly earnings automatically transferred</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🔐 Secure Transactions</h4>
+                <p>All payments are encrypted and secured with 256-bit SSL</p>
+            </div>
+        </div>
+
+        <!-- Why Become Driver -->
+        <div class="section">
+            <h2>Why Drive With GoPro?</h2>
+            <ul class="feature-list">
+                <li><strong>Highest Rates:</strong> Best per-ride rates in the city</li>
+                <li><strong>No Daily Targets:</strong> Work when you want, as much as you want</li>
+                <li><strong>Flexible Hours:</strong> Day or night shifts, choose your hours</li>
+                <li><strong>Guaranteed Minimum:</strong> Earn minimum Rs. 500/day guarantee</li>
+                <li><strong>Insurance Coverage:</strong> Rs. 5,00,000 accident insurance included</li>
+                <li><strong>Support 24/7:</strong> 24/7 customer support for driver issues</li>
+                <li><strong>Fair Rating:</strong> Transparent and fair rating system</li>
+                <li><strong>Loyalty Rewards:</strong> Earn loyalty points and bonuses</li>
+            </ul>
+        </div>
+
+        <!-- Driver Requirements -->
+        <div class="section">
+            <h2>Requirements to Drive</h2>
+            <div class="benefit-card">
+                <h4>📋 Documents Required</h4>
+                <p>Valid driving license, vehicle registration, insurance, PAN card, bank account details</p>
+            </div>
+            <div class="benefit-card">
+                <h4>🚗 Vehicle Requirements</h4>
+                <p>Vehicle must be 5+ years old, well-maintained, passing emission test</p>
+            </div>
+            <div class="benefit-card">
+                <h4>✅ Background Check</h4>
+                <p>Criminal record check, driving record verification, vehicle ownership verification</p>
+            </div>
+            <div class="benefit-card">
+                <h4>💬 Communication Skills</h4>
+                <p>Good communication, professional behavior, customer-friendly approach</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='landing.html'">← Back to Landing</button>
+            <button class="btn btn-primary" onclick="window.location.href='driver-dashboard-enhanced.html'">View Driver Dashboard →</button>
+        </div>
+    </div>
+</body>
+</html>

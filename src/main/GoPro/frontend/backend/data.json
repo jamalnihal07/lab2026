@@ -1,0 +1,209 @@
+{
+  "users": [
+    {
+      "id": "U001",
+      "name": "Rahul Sharma",
+      "email": "rahul@email.com",
+      "phone": "9876543210",
+      "password": "pass123",
+      "type": "rider",
+      "totalRides": 25,
+      "avgRating": 4.5,
+      "wallet": 2375,
+      "totalSpent": 5000,
+      "joinDate": "2024-01",
+      "verified": true
+    },
+    {
+      "id": "U002",
+      "name": "Priya Patel",
+      "email": "priya@email.com",
+      "phone": "9876543211",
+      "password": "pass456",
+      "type": "rider",
+      "totalRides": 15,
+      "avgRating": 4.3,
+      "wallet": 1500,
+      "totalSpent": 3000,
+      "joinDate": "2024-02",
+      "verified": true
+    },
+    {
+      "id": "U69987",
+      "name": "Test Rider",
+      "email": "tester398145770@example.com",
+      "phone": "9999999999",
+      "password": "Pass@12345",
+      "type": "rider",
+      "totalRides": 0,
+      "avgRating": 0,
+      "wallet": 250,
+      "totalSpent": 0,
+      "joinDate": "2026-05",
+      "verified": true
+    },
+    {
+      "id": "U19604",
+      "name": "Test Rider",
+      "email": "tester629773@example.com",
+      "phone": "9999999999",
+      "password": "Pass@12345",
+      "type": "rider",
+      "totalRides": 0,
+      "avgRating": 0,
+      "wallet": 420,
+      "totalSpent": 0,
+      "joinDate": "2026-05",
+      "verified": true
+    }
+  ],
+  "drivers": [
+    {
+      "id": "D001",
+      "name": "Anuj Singh",
+      "email": "anuj@email.com",
+      "phone": "9876543220",
+      "password": "driver123",
+      "type": "driver",
+      "totalRides": 156,
+      "avgRating": 4.8,
+      "vehicle": {
+        "type": "Sedan",
+        "registration": "DL-01-AA-0001",
+        "color": "White",
+        "model": "Hyundai Creta 2022"
+      },
+      "earnings": {
+        "today": 1250,
+        "week": 8500,
+        "month": 35000,
+        "total": 250000
+      },
+      "verified": true,
+      "status": "online"
+    }
+  ],
+  "rides": [
+    {
+      "id": "R22185",
+      "userId": "U19604",
+      "driverId": null,
+      "pickup": "Airport",
+      "dropoff": "Hotel",
+      "distance": 12.4,
+      "fare": 180,
+      "status": "active",
+      "date": "2026-05-15T02:08:34.127Z",
+      "passengerName": "Test Rider",
+      "paymentStatus": "paid",
+      "paymentMethod": "card",
+      "paymentReference": "GW-C6DEEB62-E",
+      "paidAmount": 180,
+      "paymentGateway": "demo-gateway"
+    },
+    {
+      "id": "R001",
+      "userId": "U001",
+      "driverId": "D001",
+      "pickup": "Connaught Place, Delhi",
+      "dropoff": "Terminal 3, IGI Airport",
+      "distance": 18.5,
+      "fare": 245,
+      "status": "completed",
+      "date": "2024-01-15",
+      "rating": 5,
+      "passengerName": "Rahul Sharma",
+      "passengerRating": 5
+    }
+  ],
+  "admins": [
+    {
+      "id": "ADMIN001",
+      "email": "admin@gopro.com",
+      "password": "admin123",
+      "name": "Admin User",
+      "type": "admin",
+      "verified": true
+    }
+  ],
+  "payments": [
+    {
+      "id": "PAY-926A7094",
+      "userId": "U19604",
+      "rideId": null,
+      "amount": 100,
+      "method": "card",
+      "provider": "razorpay",
+      "purpose": "wallet-topup",
+      "gateway": "demo-gateway",
+      "status": "succeeded",
+      "createdAt": "2026-05-15T02:19:09.700Z",
+      "reference": "GW-2F29D8EC-2"
+    },
+    {
+      "id": "PAY-4E0D75CA",
+      "userId": "U19604",
+      "rideId": "R22185",
+      "amount": 180,
+      "method": "card",
+      "provider": "card",
+      "purpose": "ride-payment",
+      "gateway": "demo-gateway",
+      "status": "succeeded",
+      "createdAt": "2026-05-15T02:08:34.139Z",
+      "reference": "GW-C6DEEB62-E"
+    },
+    {
+      "id": "PAY-D182CD80",
+      "userId": "U19604",
+      "rideId": null,
+      "amount": 180,
+      "method": "wallet",
+      "provider": "wallet",
+      "purpose": "ride-payment",
+      "gateway": "demo-gateway",
+      "status": "succeeded",
+      "createdAt": "2026-05-15T02:08:34.137Z",
+      "reference": "GW-5E791B77-8"
+    },
+    {
+      "id": "PAY-4B6ADE63",
+      "userId": "U19604",
+      "rideId": null,
+      "amount": 500,
+      "method": "card",
+      "provider": "card",
+      "purpose": "wallet-topup",
+      "gateway": "demo-gateway",
+      "status": "succeeded",
+      "createdAt": "2026-05-15T02:08:34.133Z",
+      "reference": "GW-F70BB5F4-9"
+    },
+    {
+      "id": "PAY-FE65536D",
+      "userId": "U001",
+      "rideId": null,
+      "amount": 125,
+      "method": "wallet",
+      "provider": "wallet",
+      "purpose": "ride-payment",
+      "gateway": "demo-gateway",
+      "status": "succeeded",
+      "createdAt": "2026-05-15T02:02:40.881Z",
+      "reference": "GW-EB83A0DF-0"
+    },
+    {
+      "id": "PAY-4111B19F",
+      "userId": "U69987",
+      "rideId": null,
+      "amount": 250,
+      "method": "card",
+      "provider": "card",
+      "purpose": "wallet-topup",
+      "gateway": "demo-gateway",
+      "status": "succeeded",
+      "createdAt": "2026-05-15T02:02:40.876Z",
+      "reference": "GW-5FA94DB4-3"
+    }
+  ]
+}

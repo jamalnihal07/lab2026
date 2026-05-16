@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoPro - How It Works</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .detail-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px 40px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.3);
+        }
+
+        .step-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .step-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .step-header p {
+            font-size: 20px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .step-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+            margin-bottom: 50px;
+        }
+
+        .step-description h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .step-description p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+
+        .step-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .step-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #FF6B6B;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .demo-section {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 5px solid #FF6B6B;
+        }
+
+        .demo-section h3 {
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .demo-step {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .demo-step-num {
+            background: #FF6B6B;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .demo-step-content {
+            flex: 1;
+        }
+
+        .demo-step-content strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.3);
+        }
+
+        .timeline {
+            margin: 40px 0;
+        }
+
+        .timeline h2 {
+            margin-bottom: 30px;
+            color: #1a1a1a;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+
+        .timeline-marker {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        .timeline-content h3 {
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .timeline-content p {
+            color: #666;
+            margin: 0;
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #4ECDC4, #44A8A0);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+
+        .tips-section h2 {
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid white;
+        }
+
+        .tip-card strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .navigation-steps {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.prev {
+            background: white;
+            color: #FF6B6B;
+            border: 2px solid #FF6B6B;
+        }
+
+        .nav-button.prev:hover:not(:disabled) {
+            background: #FF6B6B;
+            color: white;
+        }
+
+        .nav-button.next {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+            color: white;
+        }
+
+        .nav-button.next:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .step-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .step-header h1 {
+                font-size: 36px;
+            }
+
+            .step-number {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">🚗 GoPro</div>
+            <div class="nav-links">
+                <a href="landing.html" class="back-button">← Back to Landing</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="detail-container" id="howItWorksContainer">
+        <!-- Content will be populated by JavaScript -->
+    </div>
+
+    <script>
+        const steps = {
+            '1': {
+                number: 1,
+                title: 'Sign Up',
+                subtitle: 'Create your account in seconds and set up your profile',
+                description: `Getting started with GoPro is quick and easy. Create an account using your email or phone number, set a secure password, and add basic information about yourself. Whether you're a rider or driver, our simple form ensures you can be on the platform in under 2 minutes.`,
+                details: [
+                    'Enter your name and email address',
+                    'Create a secure password',
+                    'Choose your account type (Rider or Driver)',
+                    'Verify your phone number via OTP',
+                    'Add profile photo (optional)',
+                    'Complete your profile'
+                ],
+                demoSteps: [
+                    { text: 'Go to our website and click "Sign Up"' },
+                    { text: 'Enter your email and create a password' },
+                    { text: 'Choose account type: Rider, Driver, or Admin' },
+                    { text: 'Verify phone number with OTP' },
+                    { text: 'Complete your profile with details' }
+                ],
+                tips: [
+                    { title: 'Security', desc: 'Use a strong password with mix of letters, numbers, and symbols' },
+                    { title: 'Verification', desc: 'Keep your phone handy for quick OTP verification' },
+                    { title: 'Profile', desc: 'Add a clear profile photo for better driver-rider matching' }
+                ],
+                nextText: 'Once you are signed up, the next step is to Book a Ride!'
+            },
+            '2': {
+                number: 2,
+                title: 'Book a Ride',
+                subtitle: 'Enter your pickup and dropoff locations',
+                description: `After signing in, booking a ride is straightforward. Enter your pickup location and where you want to go. You can use our interactive map, search for locations, or pin your exact spot. GoPro will instantly show you the fare estimate.`,
+                details: [
+                    'Log in to your GoPro account',
+                    'Tap "Book a Ride" on the dashboard',
+                    'Select or search your pickup location',
+                    'Enter your destination address',
+                    'Set ride preferences (if needed)',
+                    'Review the fare estimate'
+                ],
+                demoSteps: [
+                    { text: 'Log in with your credentials' },
+                    { text: 'Click "Book a Ride" button' },
+                    { text: 'Drop pin on map or search location' },
+                    { text: 'Tap destination and search' },
+                    { text: 'Fare automatically calculates' },
+                    { text: 'Proceed to next step' }
+                ],
+                tips: [
+                    { title: 'Accuracy', desc: 'Be precise with your location for faster driver matching' },
+                    { title: 'Timing', desc: 'Book rides during off-peak hours for lower fares' },
+                    { title: 'Landmarks', desc: 'Use nearby landmarks if exact address isn\'t clear' }
+                ],
+                nextText: 'After booking, select your preferred Vehicle!'
+            },
+            '3': {
+                number: 3,
+                title: 'Select Vehicle',
+                subtitle: 'Choose the vehicle that fits your needs and budget',
+                description: `Choose from 5 vehicle options based on your budget, capacity needs, and comfort preferences. Each vehicle type shows the fare, estimated time, and vehicle specifications. This gives you complete control over your ride experience.`,
+                details: [
+                    'Bike - Rs. 5/km (1 passenger)',
+                    'Auto - Rs. 8/km (3 passengers)',
+                    'Mini - Rs. 10/km (4 passengers)',
+                    'Sedan - Rs. 12/km (5 passengers)',
+                    'SUV - Rs. 15/km (7 passengers)'
+                ],
+                demoSteps: [
+                    { text: 'View all 5 vehicle options with prices' },
+                    { text: 'Check capacity and features for each' },
+                    { text: 'See real-time fare calculation' },
+                    { text: 'Check estimated pickup time' },
+                    { text: 'Compare comfort vs. price' },
+                    { text: 'Select your preferred vehicle' }
+                ],
+                tips: [
+                    { title: 'Budget', desc: 'Bike is cheapest, but Mini offers best balance' },
+                    { title: 'Groups', desc: 'Use Auto for 2-3 people, SUV for 5+ people' },
+                    { title: 'Business', desc: 'Choose Sedan for professional meetings' }
+                ],
+                nextText: 'Vehicle selected? Now it\'s time to Pay!'
+            },
+            '4': {
+                number: 4,
+                title: 'Pay Securely',
+                subtitle: 'Multiple payment options for your convenience',
+                description: `GoPro supports 4+ payment methods including Wallet, UPI, Card, and Cash. All transactions are 256-bit encrypted and secure. Choose your preferred method before the ride starts or pay after completion.`,
+                details: [
+                    'Wallet - Pre-loaded balance',
+                    'UPI - Google Pay, PhonePe, Paytm, BHIM',
+                    'Credit/Debit Card - Visa, Mastercard, Rupay',
+                    'Cash - Pay driver directly'
+                ],
+                demoSteps: [
+                    { text: 'Review trip fare breakdown' },
+                    { text: 'See any applied discount codes' },
+                    { text: 'Choose payment method' },
+                    { text: 'For UPI, select provider' },
+                    { text: 'For Card, enter details' },
+                    { text: 'Confirm payment' }
+                ],
+                tips: [
+                    { title: 'Discounts', desc: 'Apply coupon codes like SAVE50 before payment' },
+                    { title: 'Wallet', desc: 'Keep wallet loaded for instant payments' },
+                    { title: 'Receipts', desc: 'Always request receipt for expense reports' }
+                ],
+                nextText: 'Payment done? Time to Enjoy your ride!'
+            },
+            '5': {
+                number: 5,
+                title: 'Enjoy Your Ride',
+                subtitle: 'Track your driver in real-time and reach your destination',
+                description: `Your driver is on the way! Watch their location in real-time on our interactive map. Chat with your driver if needed, track progress, and share your ride details with family or friends. Sit back, relax, and enjoy your GoPro experience.`,
+                details: [
+                    'Real-time GPS tracking of driver',
+                    'See route on interactive map',
+                    'Chat or call driver if needed',
+                    'Share ride details with contacts',
+                    'View ride analytics (distance, time)',
+                    'Rate and review after completion'
+                ],
+                demoSteps: [
+                    { text: 'See driver location and vehicle details' },
+                    { text: 'Watch driver approaching on map' },
+                    { text: 'Driver arrives - confirm pickup' },
+                    { text: 'Watch route live during ride' },
+                    { text: 'Share ETA with contacts' },
+                    { text: 'Arrive at destination' }
+                ],
+                tips: [
+                    { title: 'Safety', desc: 'Share ride with trusted contacts for safety' },
+                    { title: 'Communication', desc: 'Chat with driver about route or stops' },
+                    { title: 'Reviews', desc: 'Rate driver to help improve service quality' }
+                ],
+                nextText: 'Your ride is complete! Rate, review, and book your next ride.'
+            }
+        };
+
+        function getStepKey() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('step') || '1';
+        }
+
+        function renderStep() {
+            const key = getStepKey();
+            const step = steps[key];
+
+            if (!step) {
+                document.getElementById('howItWorksContainer').innerHTML = '<p>Step not found</p>';
+                return;
+            }
+
+            let html = `
+                <div class="step-header">
+                    <div class="step-number">${step.number}</div>
+                    <h1>${step.title}</h1>
+                    <p>${step.subtitle}</p>
+                </div>
+
+                <div class="step-content">
+                    <div class="step-description">
+                        <h2>What Happens</h2>
+                        <p>${step.description}</p>
+                        <ul class="step-list">
+                            ${step.details.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="demo-section">
+                        <h3>Step-by-Step Demo</h3>
+                        ${step.demoSteps.map((s, idx) => `
+                            <div class="demo-step">
+                                <div class="demo-step-num">${idx + 1}</div>
+                                <div class="demo-step-content">${s.text}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <h2>Pro Tips</h2>
+                    ${step.tips.map(t => `
+                        <div class="timeline-item">
+                            <div class="timeline-marker">💡</div>
+                            <div class="timeline-content">
+                                <h3>${t.title}</h3>
+                                <p>${t.desc}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="tips-section">
+                    <h2>Ready for the Next Step?</h2>
+                    <p style="margin-bottom: 20px;">${step.nextText}</p>
+                    <div class="navigation-steps">
+                        <button class="nav-button prev" onclick="previousStep()" ${step.number === 1 ? 'disabled' : ''}>
+                            ← Previous Step
+                        </button>
+                        <button class="nav-button next" onclick="nextStep()" ${step.number === 5 ? 'disabled' : ''}>
+                            Next Step →
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('howItWorksContainer').innerHTML = html;
+        }
+
+        function previousStep() {
+            const currentStep = parseInt(getStepKey());
+            if (currentStep > 1) {
+                window.location.href = `?step=${currentStep - 1}`;
+            }
+        }
+
+        function nextStep() {
+            const currentStep = parseInt(getStepKey());
+            if (currentStep < 5) {
+                window.location.href = `?step=${currentStep + 1}`;
+            }
+        }
+
+        // Render step on page load
+        renderStep();
+    </script>
+</body>
+</html>
